@@ -42,12 +42,6 @@ public class EnemyMovement : MonoBehaviour
         if (_sr == null) _sr = GetComponent<SpriteRenderer>();
         if (_bc == null) _bc = GetComponent<BoxCollider2D>();
 
-        // Reset state for reuse
-        if (_anim != null)
-        {
-            _anim.SetBool("IsMoving", true);
-        }
-
         // Reset health and movement lock state
         _currentHealth = _maxHealth;
 
@@ -65,6 +59,12 @@ public class EnemyMovement : MonoBehaviour
 
         // Activate the GameObject to make it visible and interactive in the scene
         gameObject.SetActive(true);
+
+        // Reset state for reuse
+        if (_anim != null)
+        {
+            _anim.SetBool("IsMoving", true);
+        }
     }
 
     public void Despawn()
