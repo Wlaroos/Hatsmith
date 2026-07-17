@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
@@ -23,8 +24,6 @@ public class PlayerHealth : MonoBehaviour
     public bool IsDowned => _isDowned;
     private SpriteRenderer _sr;
     private Animator _anim;
-
-    public UnityEvent DamageEvent = new UnityEvent();
 
     private void Awake()
     {
@@ -52,10 +51,11 @@ public class PlayerHealth : MonoBehaviour
 
         _currentHealth -= damage;
 
-        DamageEvent.Invoke();
+        GameManager.Instance.InvokePlayerDamageEvent();
 
         if (_currentHealth <= 0)
         {
+            GameManager.Instance.InvokePlayerDownedEvent();
             Down();
             return;
         }

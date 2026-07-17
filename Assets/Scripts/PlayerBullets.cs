@@ -74,7 +74,6 @@ public class PlayerBullets : MonoBehaviour
     {
         if (!_once)
         {
-            Debug.Log("Destroying Bullet");
             _once = true;
 
             StartCoroutine(DestroyBullet(0f));

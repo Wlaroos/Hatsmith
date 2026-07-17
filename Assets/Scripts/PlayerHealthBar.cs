@@ -27,12 +27,14 @@ public class PlayerHealthBar : MonoBehaviour
 
     private void OnEnable()
     {
-        _playerHealth.DamageEvent.AddListener(UpdateHealthBar);
+        GameManager.Instance.PlayerDamageEvent += UpdateHealthBar;
+        GameManager.Instance.PlayerDownedEvent += UpdateHealthBar;
     }
 
     private void OnDisable()
     {
-        _playerHealth.DamageEvent.RemoveListener(UpdateHealthBar);
+        GameManager.Instance.PlayerDamageEvent -= UpdateHealthBar;
+        GameManager.Instance.PlayerDownedEvent -= UpdateHealthBar;
     }
 
     private void UpdateHealthBar()
