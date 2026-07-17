@@ -11,6 +11,7 @@ public class PlayerBullets : MonoBehaviour
     [SerializeField] private float _size = 1;
     [SerializeField] private GameObject ps;
     private Rigidbody2D _rb;
+    private BoxCollider2D _bc;
     private Animator _anim;
 
     bool _once;
@@ -18,6 +19,7 @@ public class PlayerBullets : MonoBehaviour
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
+        _bc = GetComponent<BoxCollider2D>();
         _anim = GetComponent<Animator>();
     }
 
@@ -46,11 +48,14 @@ public class PlayerBullets : MonoBehaviour
     {   
         if(collision.tag == "BulletBounds")
         {
-            _rb.linearVelocity = Vector2.zero;
-            _rb.bodyType = RigidbodyType2D.Static;
+            FrozenAndTrigger();
+        }
+        else if (collision.GetComponent<EnemyMovement>() != null)
+        {
+            Vector2 knockbackDirection = _rb.linearVelocity.normalized;
+            collision.GetComponent<EnemyMovement>().TakeDamage(_damage, knockbackDirection * _knockback);
 
-            // The animation will play and then the bullet will be destroyed with an animation event
-            _anim.SetTrigger("Destroy");
+            FrozenAndTrigger();
         }
     }
 
@@ -80,11 +85,21 @@ public class PlayerBullets : MonoBehaviour
         }
     }
 
+    private void FrozenAndTrigger()
+    {
+        _rb.linearVelocity = Vector2.zero;
+        _rb.bodyType = RigidbodyType2D.Static;
+
+        _bc.enabled = false;
+
+        _anim.SetTrigger("Destroy");
+    }
+
     /* 
             if (collision.GetComponent<Enemy>() != null && gameObject.name == "NormalBullet(Clone)")
             {
                 Instantiate(ps, transform.position, Quaternion.identity);
-                collision.GetComponent<Enemy>().TakeDamage(_rb.velocity.normalized * _knockback, _damage);
+                collision.GetComponent<Enemy>().TakeDamage(_rb.linearVelocity.normalized * _knockback, _damage);
                 Destroy(gameObject);
             }
 

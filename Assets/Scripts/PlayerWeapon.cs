@@ -83,12 +83,10 @@ public class PlayerWeapon : MonoBehaviour
         //AudioManager.PlaySound("PoisonShot");
         
         gunEndPointPosition = shootTransform.position;
-        
-        Transform bulletTransform = Instantiate(bulletRef.transform, gunEndPointPosition, Quaternion.identity);
-        Vector3 shootDir = (gunEndPointPosition - transform.position).normalized;
 
-        Vector3 aimDir = (mousePos - transform.position).normalized;
-        float angle = Mathf.Atan2(aimDir.y, aimDir.x) * Mathf.Rad2Deg;
+        Transform bulletTransform = Instantiate(bulletRef.transform, gunEndPointPosition, Quaternion.identity);
+        Vector3 shootDir = (mousePos - gunEndPointPosition).normalized;
+        float angle = Mathf.Atan2(shootDir.y, shootDir.x) * Mathf.Rad2Deg;
 
         bulletTransform.GetComponent<PlayerBullets>().BulletSetup(shootDir, angle, 20, 1, 3, _bulletSize);
 
