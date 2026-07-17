@@ -8,7 +8,6 @@ public class PlayerMovement : MonoBehaviour
 {
 
     [SerializeField] private float _moveSpeed = 5f;
-    [SerializeField] private Sprite[] _sprites;
 
     private Rigidbody2D _rb;
     private SpriteRenderer _sr;
@@ -33,23 +32,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Changing Direction Sprites
-        if (_moveDirection != Vector2.zero)
-        {
-            // switch (_moveDirection.x)
-            // {
-            //     case < 0:
-            //         _sr.sprite = _moveDirection.y > 0 ? _sprites[0] : _sprites[3];
-            //         break;
-            //     case > 0:
-            //         _sr.sprite = _moveDirection.y > 0 ? _sprites[2] : _sprites[5];
-            //         break;
-            //     default:
-            //         _sr.sprite = _moveDirection.y > 0 ? _sprites[1] : _sprites[4];
-            //         break;
-            // }
-        }
-
         float mouseScreenX = Input.mousePosition.x;
         _sr.flipX = mouseScreenX <= Screen.width * 0.5f;
 

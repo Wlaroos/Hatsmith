@@ -1,55 +1,108 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
+    [Header("Movement Settings")]
     [SerializeField] private float _moveSpeed = 2f;
     [SerializeField] private float _lerpSpeed = 5f;
+
+    [Header("Knockback Settings")]
     [SerializeField] private float _movementLockDuration = 0.1f;
+
+    [Header("Flocking Settings")]
+    [SerializeField] private float _flockRadius = 2f;
+    [SerializeField] private float _flockInfluence = 0.6f;
+    [SerializeField] private float _alignmentWeight = 0.5f;
+    [SerializeField] private float _cohesionWeight = 0.25f;
+    [SerializeField] private float _separationWeight = 0.75f;
+
+    [Header("Particle Settings")]
     [SerializeField] private GameObject _hitParticles;
     [SerializeField] private GameObject _deathParticles;
 
-    private PlayerMovement _player;
+    [Header("Wander Settings")]
+    [SerializeField] private float _wanderRadius = 3f;
+    [SerializeField] private float _wanderInterval = 1.5f;
+    [SerializeField] private float _wanderSpeedMultiplier = 0.4f;
+
+    private PlayerMovement _playerMovement;
+    private PlayerHealth _playerHealth;
+    
     private Animator _anim;
     private Rigidbody2D _rb;
     private SpriteRenderer _sr;
     private BoxCollider2D _bc;
+    
     private int _maxHealth = 2;
     private int _currentHealth;
     private float _movementLockTimer;
     private bool _movementLocked;
 
-    public void Initialize(PlayerMovement player)
+    // Wander variables
+    private Vector2 _wanderTarget;
+    private float _wanderTimer;
+
+    private static readonly List<EnemyMovement> _activeEnemies = new();
+
+    public void Initialize(PlayerMovement playerMovement, PlayerHealth playerHealth)
     {
-        _player = player;
-        _anim = GetComponent<Animator>();
-        _rb = GetComponent<Rigidbody2D>();
-        _sr = GetComponent<SpriteRenderer>();
-        _bc = GetComponent<BoxCollider2D>();
+        _playerMovement = playerMovement;
+        _playerHealth = playerHealth;
+
+        GetPlayerRefs();
+        CacheComponents();
+    }
+
+    private void OnEnable()
+    {
+        if (!_activeEnemies.Contains(this))
+        {
+            _activeEnemies.Add(this);
+        }
+    }
+
+    private void OnDisable()
+    {
+        _activeEnemies.Remove(this);
+    }
+
+    private void GetPlayerRefs()
+    {
+        if (_playerMovement == null)
+        {
+            _playerMovement = FindAnyObjectByType<PlayerMovement>();
+        }
+
+        if (_playerMovement != null)
+        {
+            _playerHealth ??= _playerMovement.GetComponent<PlayerHealth>();
+        }
+    }
+
+    private void CacheComponents()
+    {
+        _anim ??= GetComponent<Animator>();
+        _rb ??= GetComponent<Rigidbody2D>();
+        _sr ??= GetComponent<SpriteRenderer>();
+        _bc ??= GetComponent<BoxCollider2D>();
     }
 
     public void Spawn(Vector2 position)
     {
         transform.position = position;
 
-        // Ensure components and player reference are valid when reused from a pool
-        if (_player == null)
-        {
-            _player = FindAnyObjectByType<PlayerMovement>();
-        }
+        GetPlayerRefs();
+        CacheComponents();
 
-        if (_anim == null) _anim = GetComponent<Animator>();
-        if (_rb == null) _rb = GetComponent<Rigidbody2D>();
-        if (_sr == null) _sr = GetComponent<SpriteRenderer>();
-        if (_bc == null) _bc = GetComponent<BoxCollider2D>();
+        _wanderTarget = position;
+        _wanderTimer = 0f; // Forces immediate wander target selection
 
-        // Reset health and movement lock state
         _currentHealth = _maxHealth;
-
         _movementLocked = false;
         _movementLockTimer = 0f;
 
-        // Enable the collider and Rigidbody2D for interaction
-        _bc.enabled = true;
+        if (_bc != null) _bc.enabled = true;
 
         if (_rb != null)
         {
@@ -57,10 +110,8 @@ public class EnemyMovement : MonoBehaviour
             _rb.linearVelocity = Vector2.zero;
         }
 
-        // Activate the GameObject to make it visible and interactive in the scene
         gameObject.SetActive(true);
 
-        // Reset state for reuse
         if (_anim != null)
         {
             _anim.SetBool("IsMoving", true);
@@ -74,7 +125,7 @@ public class EnemyMovement : MonoBehaviour
 
     private void Update()
     {
-        if (_player == null || !gameObject.activeSelf)
+        if (_playerMovement == null || !gameObject.activeSelf)
         {
             return;
         }
@@ -99,14 +150,108 @@ public class EnemyMovement : MonoBehaviour
             return;
         }
 
-        Vector2 direction = (_player.transform.position - transform.position).normalized;
-        Vector2 targetVelocity = direction * _moveSpeed;
+        Vector2 targetVelocity = ShouldWander() ? GetWanderVelocity() : GetChaseVelocity();
+
+        Vector2 alignment = Vector2.zero;
+        Vector2 cohesion = Vector2.zero;
+        Vector2 separation = Vector2.zero;
+        int nearbyCount = 0;
+
+        foreach (EnemyMovement other in _activeEnemies)
+        {
+            if (other == null || other == this || !other.gameObject.activeSelf)
+            {
+                continue;
+            }
+
+            Vector2 offset = other.transform.position - transform.position;
+            float distance = offset.magnitude;
+            if (distance <= 0f || distance > _flockRadius)
+            {
+                continue;
+            }
+
+            nearbyCount++;
+            alignment += other._rb != null ? other._rb.linearVelocity : Vector2.zero;
+            cohesion += (Vector2)other.transform.position;
+            separation -= offset / (distance * distance + 0.0001f);
+        }
+
+        if (nearbyCount > 0)
+        {
+            alignment /= nearbyCount;
+            cohesion = (cohesion / nearbyCount) - (Vector2)transform.position;
+            separation /= nearbyCount;
+
+            Vector2 flockDirection = (alignment.normalized * _alignmentWeight) + 
+                                     (cohesion.normalized * _cohesionWeight) + 
+                                     (separation.normalized * _separationWeight);
+
+            if (flockDirection.sqrMagnitude > 0.0001f)
+            {
+                targetVelocity += flockDirection * _flockInfluence;
+            }
+        }
+
+        targetVelocity = Vector2.ClampMagnitude(targetVelocity, _moveSpeed);
         _rb.linearVelocity = Vector2.Lerp(_rb.linearVelocity, targetVelocity, _lerpSpeed * Time.deltaTime);
 
         if (_sr != null)
         {
-            _sr.flipX = direction.x < 0;
+            Vector2 facingDirection = ShouldWander() ? (_wanderTarget - (Vector2)transform.position) : (_playerMovement.transform.position - transform.position);
+            _sr.flipX = facingDirection.x < 0;
         }
+    }
+
+    private bool ShouldWander()
+    {
+        return _playerHealth != null && _playerHealth.IsDowned;
+    }
+
+    private Vector2 GetChaseVelocity()
+    {
+        if (_playerMovement == null)
+        {
+            return Vector2.zero;
+        }
+
+        return (_playerMovement.transform.position - transform.position).normalized * _moveSpeed;
+    }
+
+    private Vector2 GetWanderVelocity()
+    {
+        _wanderTimer -= Time.deltaTime;
+        Vector2 offset = _wanderTarget - (Vector2)transform.position;
+
+        if (_wanderTimer <= 0f || offset.sqrMagnitude <= 0.04f)
+        {
+            // Generate the random point
+            Vector2 randomPoint = (Vector2)transform.position + Random.insideUnitCircle * _wanderRadius;
+            
+            // Clamp it to the screen bounds before setting it as the target
+            _wanderTarget = ClampToScreenBounds(randomPoint);
+            
+            _wanderTimer = Random.Range(_wanderInterval * 0.5f, _wanderInterval * 1.5f);
+            offset = _wanderTarget - (Vector2)transform.position;
+        }
+
+        return offset.normalized * (_moveSpeed * _wanderSpeedMultiplier);
+    }
+
+    private Vector2 ClampToScreenBounds(Vector2 targetPosition)
+    {
+        Camera cam = Camera.main;
+        if (cam == null) return targetPosition;
+
+        float halfHeight = cam.orthographicSize;
+        float halfWidth = halfHeight * cam.aspect;
+
+        // Subtract a margin for the walls (Size 1 for a 1x1 square)
+        float margin = 1f; 
+        float clampX = Mathf.Clamp(targetPosition.x, -halfWidth + margin, halfWidth - margin);
+        float clampY = Mathf.Clamp(targetPosition.y, -halfHeight + margin, halfHeight - margin);
+
+        return new Vector2(clampX, clampY);
     }
 
     public void TakeDamage(int damage, Vector2 knockbackForce)
@@ -142,7 +287,7 @@ public class EnemyMovement : MonoBehaviour
     {
         if (_rb != null && _rb.bodyType != RigidbodyType2D.Static)
         {
-            _rb.linearVelocity = Vector2.zero; // Reset velocity before applying knockback
+            _rb.linearVelocity = Vector2.zero;
             _rb.AddForce(force, ForceMode2D.Impulse);
         }
     }
@@ -150,7 +295,6 @@ public class EnemyMovement : MonoBehaviour
     public void Destroy()
     {
         Despawn();
-        _currentHealth = _maxHealth; // Reset health for reuse
+        _currentHealth = _maxHealth;
     }
-    
 }

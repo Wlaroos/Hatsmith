@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6636248548585592254}
   m_Layer: 7
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -202,8 +202,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69a83c6686e1d5149923c10edf6448cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  _moveSpeed: 8
-  _lerpSpeed: 8
+  _moveSpeed: 5
+  _lerpSpeed: 5
   _movementLockDuration: 0.05
+  _flockRadius: 1.5
+  _flockInfluence: 0.4
+  _alignmentWeight: 0.5
+  _cohesionWeight: 0.15
+  _separationWeight: 1.5
   _hitParticles: {fileID: 1703956455698199224, guid: a952e6d4b4ad321469415b670707f82d, type: 3}
   _deathParticles: {fileID: 6009536360408007042, guid: ac5f16ff19de51d44b5c3488ed02131a, type: 3}
+  _wanderRadius: 3
+  _wanderInterval: 1.5
+  _wanderSpeedMultiplier: 0.4

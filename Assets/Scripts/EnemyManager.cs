@@ -4,7 +4,10 @@ using System.Collections;
 
 public class EnemyManager : MonoBehaviour
 {
-    [SerializeField] private PlayerMovement _player;
+    [Header("Player")]
+    [SerializeField] private PlayerMovement _playerMovement;
+    [SerializeField] private PlayerHealth _playerHealth;
+    [Header("Enemy Spawning")]
     [SerializeField] private GameObject _enemyPrefab;
     [SerializeField] private int _startPoolSize = 10;
     [SerializeField] private float _spawnPadding = 1.5f;
@@ -14,9 +17,14 @@ public class EnemyManager : MonoBehaviour
 
     private void Awake()
     {
-        if (_player == null)
+        if (_playerMovement == null)
         {
-            _player = FindAnyObjectByType<PlayerMovement>();
+            _playerMovement = FindAnyObjectByType<PlayerMovement>();
+        }
+
+        if (_playerHealth == null && _playerMovement != null)
+        {
+            _playerHealth = _playerMovement.GetComponent<PlayerHealth>();
         }
 
         _mainCamera = Camera.main;
@@ -72,13 +80,8 @@ public class EnemyManager : MonoBehaviour
         GameObject enemyObject = Instantiate(_enemyPrefab, transform);
         enemyObject.SetActive(false);
 
-        EnemyMovement enemyMovement = enemyObject.GetComponent<EnemyMovement>();
-        if (enemyMovement == null)
-        {
-            enemyMovement = enemyObject.AddComponent<EnemyMovement>();
-        }
-
-        enemyMovement.Initialize(_player);
+        EnemyMovement enemyMovement = enemyObject.GetComponent<EnemyMovement>() ?? enemyObject.AddComponent<EnemyMovement>();
+        enemyMovement.Initialize(_playerMovement, _playerHealth);
         _enemies.Add(enemyMovement);
         return enemyMovement;
     }
@@ -93,23 +96,18 @@ public class EnemyManager : MonoBehaviour
         float halfHeight = _mainCamera.orthographicSize + _spawnPadding;
         float halfWidth = (halfHeight * _mainCamera.aspect) + _spawnPadding;
 
-        int side = Random.Range(0, 4);
-        switch (side)
+        return Random.Range(0, 4) switch
         {
-            case 0:
-                return new Vector2(-halfWidth, Random.Range(-halfHeight, halfHeight));
-            case 1:
-                return new Vector2(halfWidth, Random.Range(-halfHeight, halfHeight));
-            case 2:
-                return new Vector2(Random.Range(-halfWidth, halfWidth), halfHeight);
-            default:
-                return new Vector2(Random.Range(-halfWidth, halfWidth), -halfHeight);
-        }
+            0 => new Vector2(-halfWidth, Random.Range(-halfHeight, halfHeight)),
+            1 => new Vector2(halfWidth, Random.Range(-halfHeight, halfHeight)),
+            2 => new Vector2(Random.Range(-halfWidth, halfWidth), halfHeight),
+            _ => new Vector2(Random.Range(-halfWidth, halfWidth), -halfHeight)
+        };
     }
 
     private IEnumerator SpawnEnemiesOverTime()
     {
-        while (true)
+        while (_playerHealth == null || !_playerHealth.IsDowned)
         {
             yield return new WaitForSeconds(1f);
             SpawnEnemy();
