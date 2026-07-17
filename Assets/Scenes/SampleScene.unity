@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 5125791}
   - component: {fileID: 5125790}
   - component: {fileID: 5125789}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (47)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -292,7 +292,7 @@ GameObject:
   - component: {fileID: 14718232}
   - component: {fileID: 14718231}
   - component: {fileID: 14718230}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (20)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -450,7 +450,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 23607590}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Bottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1543,7 +1543,7 @@ GameObject:
   - component: {fileID: 56617267}
   - component: {fileID: 56617266}
   - component: {fileID: 56617268}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (47)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -1704,7 +1704,7 @@ GameObject:
   - component: {fileID: 68039614}
   - component: {fileID: 68039613}
   - component: {fileID: 68039612}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (48)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -1865,7 +1865,7 @@ GameObject:
   - component: {fileID: 69003678}
   - component: {fileID: 69003677}
   - component: {fileID: 69003679}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (2)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -2026,7 +2026,7 @@ GameObject:
   - component: {fileID: 74989057}
   - component: {fileID: 74989056}
   - component: {fileID: 74989058}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (67)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -2187,7 +2187,7 @@ GameObject:
   - component: {fileID: 187703116}
   - component: {fileID: 187703115}
   - component: {fileID: 187703114}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (38)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -2348,7 +2348,7 @@ GameObject:
   - component: {fileID: 209304919}
   - component: {fileID: 209304918}
   - component: {fileID: 209304917}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (33)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -2509,7 +2509,7 @@ GameObject:
   - component: {fileID: 221549957}
   - component: {fileID: 221549956}
   - component: {fileID: 221549955}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (28)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -2670,7 +2670,7 @@ GameObject:
   - component: {fileID: 228313006}
   - component: {fileID: 228313005}
   - component: {fileID: 228313007}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (37)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -2831,7 +2831,7 @@ GameObject:
   - component: {fileID: 228470900}
   - component: {fileID: 228470899}
   - component: {fileID: 228470898}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (35)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -3037,7 +3037,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 235709439}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3093,7 +3093,7 @@ GameObject:
   - component: {fileID: 247950349}
   - component: {fileID: 247950348}
   - component: {fileID: 247950347}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (12)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -3254,7 +3254,7 @@ GameObject:
   - component: {fileID: 270310489}
   - component: {fileID: 270310488}
   - component: {fileID: 270310490}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (62)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -3415,7 +3415,7 @@ GameObject:
   - component: {fileID: 271175400}
   - component: {fileID: 271175399}
   - component: {fileID: 271175398}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (44)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -3576,7 +3576,7 @@ GameObject:
   - component: {fileID: 291177988}
   - component: {fileID: 291177987}
   - component: {fileID: 291177986}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (40)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -3737,7 +3737,7 @@ GameObject:
   - component: {fileID: 318510307}
   - component: {fileID: 318510306}
   - component: {fileID: 318510305}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (66)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -3898,7 +3898,7 @@ GameObject:
   - component: {fileID: 323560254}
   - component: {fileID: 323560253}
   - component: {fileID: 323560252}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (16)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -4059,7 +4059,7 @@ GameObject:
   - component: {fileID: 324938483}
   - component: {fileID: 324938482}
   - component: {fileID: 324938481}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (49)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -4220,7 +4220,7 @@ GameObject:
   - component: {fileID: 330563936}
   - component: {fileID: 330563935}
   - component: {fileID: 330563937}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (4)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -4381,7 +4381,7 @@ GameObject:
   - component: {fileID: 430491852}
   - component: {fileID: 430491851}
   - component: {fileID: 430491853}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (21)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -4542,7 +4542,7 @@ GameObject:
   - component: {fileID: 505917784}
   - component: {fileID: 505917783}
   - component: {fileID: 505917782}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (27)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -4703,7 +4703,7 @@ GameObject:
   - component: {fileID: 508668629}
   - component: {fileID: 508668628}
   - component: {fileID: 508668630}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (23)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -5039,7 +5039,7 @@ GameObject:
   - component: {fileID: 545582929}
   - component: {fileID: 545582928}
   - component: {fileID: 545582930}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (18)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -5200,7 +5200,7 @@ GameObject:
   - component: {fileID: 564957290}
   - component: {fileID: 564957289}
   - component: {fileID: 564957288}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (18)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -5361,7 +5361,7 @@ GameObject:
   - component: {fileID: 584350621}
   - component: {fileID: 584350620}
   - component: {fileID: 584350622}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (54)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -5547,7 +5547,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 00000000f7f9e579
+  m_ApplyToSortingLayers: 00000000f7f9e5791d876f07
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -5606,7 +5606,7 @@ GameObject:
   - component: {fileID: 644262907}
   - component: {fileID: 644262906}
   - component: {fileID: 644262908}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (36)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -5767,7 +5767,7 @@ GameObject:
   - component: {fileID: 651930841}
   - component: {fileID: 651930840}
   - component: {fileID: 651930839}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (15)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -5928,7 +5928,7 @@ GameObject:
   - component: {fileID: 668559743}
   - component: {fileID: 668559742}
   - component: {fileID: 668559741}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (58)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -6089,7 +6089,7 @@ GameObject:
   - component: {fileID: 683142663}
   - component: {fileID: 683142662}
   - component: {fileID: 683142661}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (46)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -6250,7 +6250,7 @@ GameObject:
   - component: {fileID: 698825624}
   - component: {fileID: 698825623}
   - component: {fileID: 698825622}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (48)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -6474,9 +6474,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 124749597
+  m_SortingLayer: 1
+  m_SortingOrder: 5
   m_MaskInteraction: 0
   m_Sprite: {fileID: 3433597805001075986, guid: ca81b1c30d70fb2448b1484803674685, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -6515,7 +6515,7 @@ GameObject:
   - component: {fileID: 744586674}
   - component: {fileID: 744586673}
   - component: {fileID: 744586675}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (33)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -6676,7 +6676,7 @@ GameObject:
   - component: {fileID: 767394554}
   - component: {fileID: 767394553}
   - component: {fileID: 767394555}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (16)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -6837,7 +6837,7 @@ GameObject:
   - component: {fileID: 777690897}
   - component: {fileID: 777690896}
   - component: {fileID: 777690895}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (37)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -6998,7 +6998,7 @@ GameObject:
   - component: {fileID: 824758517}
   - component: {fileID: 824758516}
   - component: {fileID: 824758515}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (4)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -7159,7 +7159,7 @@ GameObject:
   - component: {fileID: 836125040}
   - component: {fileID: 836125039}
   - component: {fileID: 836125038}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (21)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -7320,7 +7320,7 @@ GameObject:
   - component: {fileID: 870953510}
   - component: {fileID: 870953509}
   - component: {fileID: 870953508}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (8)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -7481,7 +7481,7 @@ GameObject:
   - component: {fileID: 912276937}
   - component: {fileID: 912276936}
   - component: {fileID: 912276935}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (60)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -7640,7 +7640,7 @@ GameObject:
   m_Component:
   - component: {fileID: 927331265}
   - component: {fileID: 927331266}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Shoot End Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7733,7 +7733,7 @@ GameObject:
   - component: {fileID: 965798267}
   - component: {fileID: 965798266}
   - component: {fileID: 965798265}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (50)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -7894,7 +7894,7 @@ GameObject:
   - component: {fileID: 978499890}
   - component: {fileID: 978499889}
   - component: {fileID: 978499888}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (3)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -8055,7 +8055,7 @@ GameObject:
   - component: {fileID: 1031648086}
   - component: {fileID: 1031648085}
   - component: {fileID: 1031648084}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (52)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -8216,7 +8216,7 @@ GameObject:
   - component: {fileID: 1041650598}
   - component: {fileID: 1041650597}
   - component: {fileID: 1041650596}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (10)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -8377,7 +8377,7 @@ GameObject:
   - component: {fileID: 1050267739}
   - component: {fileID: 1050267738}
   - component: {fileID: 1050267737}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (39)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -8538,7 +8538,7 @@ GameObject:
   - component: {fileID: 1073979883}
   - component: {fileID: 1073979882}
   - component: {fileID: 1073979884}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (20)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -8699,7 +8699,7 @@ GameObject:
   - component: {fileID: 1099517723}
   - component: {fileID: 1099517722}
   - component: {fileID: 1099517721}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (61)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -8860,7 +8860,7 @@ GameObject:
   - component: {fileID: 1144079642}
   - component: {fileID: 1144079641}
   - component: {fileID: 1144079640}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (7)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -9021,7 +9021,7 @@ GameObject:
   - component: {fileID: 1147024842}
   - component: {fileID: 1147024841}
   - component: {fileID: 1147024840}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (32)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -9182,7 +9182,7 @@ GameObject:
   - component: {fileID: 1209782787}
   - component: {fileID: 1209782786}
   - component: {fileID: 1209782785}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (51)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -9343,7 +9343,7 @@ GameObject:
   - component: {fileID: 1218273545}
   - component: {fileID: 1218273544}
   - component: {fileID: 1218273543}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (59)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -9501,7 +9501,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1221354332}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9559,7 +9559,7 @@ GameObject:
   - component: {fileID: 1229314373}
   - component: {fileID: 1229314372}
   - component: {fileID: 1229314374}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (64)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -9808,7 +9808,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1266409196}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9866,7 +9866,7 @@ GameObject:
   - component: {fileID: 1296922873}
   - component: {fileID: 1296922872}
   - component: {fileID: 1296922874}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (63)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -10027,7 +10027,7 @@ GameObject:
   - component: {fileID: 1310550617}
   - component: {fileID: 1310550616}
   - component: {fileID: 1310550615}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (34)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -10188,7 +10188,7 @@ GameObject:
   - component: {fileID: 1315019008}
   - component: {fileID: 1315019007}
   - component: {fileID: 1315019006}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (30)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -10349,7 +10349,7 @@ GameObject:
   - component: {fileID: 1350381156}
   - component: {fileID: 1350381155}
   - component: {fileID: 1350381157}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (57)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -10510,7 +10510,7 @@ GameObject:
   - component: {fileID: 1372200154}
   - component: {fileID: 1372200153}
   - component: {fileID: 1372200155}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (3)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -10671,7 +10671,7 @@ GameObject:
   - component: {fileID: 1414328931}
   - component: {fileID: 1414328930}
   - component: {fileID: 1414328932}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (19)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -10834,7 +10834,7 @@ GameObject:
   - component: {fileID: 1426348528}
   - component: {fileID: 1426348533}
   - component: {fileID: 1426348534}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11043,7 +11043,7 @@ GameObject:
   - component: {fileID: 1474613472}
   - component: {fileID: 1474613471}
   - component: {fileID: 1474613470}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (13)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -11204,7 +11204,7 @@ GameObject:
   - component: {fileID: 1493940722}
   - component: {fileID: 1493940721}
   - component: {fileID: 1493940720}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (45)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -11365,7 +11365,7 @@ GameObject:
   - component: {fileID: 1510411008}
   - component: {fileID: 1510411007}
   - component: {fileID: 1510411009}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (34)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -11526,7 +11526,7 @@ GameObject:
   - component: {fileID: 1516905883}
   - component: {fileID: 1516905882}
   - component: {fileID: 1516905881}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (19)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -11687,7 +11687,7 @@ GameObject:
   - component: {fileID: 1523444280}
   - component: {fileID: 1523444279}
   - component: {fileID: 1523444278}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (35)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -11848,7 +11848,7 @@ GameObject:
   - component: {fileID: 1533221580}
   - component: {fileID: 1533221579}
   - component: {fileID: 1533221578}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (14)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -12009,7 +12009,7 @@ GameObject:
   - component: {fileID: 1590596937}
   - component: {fileID: 1590596936}
   - component: {fileID: 1590596935}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (42)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -12170,7 +12170,7 @@ GameObject:
   - component: {fileID: 1603671977}
   - component: {fileID: 1603671976}
   - component: {fileID: 1603671975}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (53)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -12330,7 +12330,7 @@ GameObject:
   - component: {fileID: 1613189077}
   - component: {fileID: 1613189078}
   - component: {fileID: 1613189079}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12367,7 +12367,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletRef: {fileID: 104384480508462922, guid: cd52ca37977494c4dbb702de24edc328, type: 3}
   shootTransform: {fileID: 927331265}
-  _isAuto: 0
+  _isAuto: 1
   _fireDelay: 0.2
   _bulletSize: 1
 --- !u!212 &1613189079
@@ -12441,7 +12441,7 @@ GameObject:
   - component: {fileID: 1614993832}
   - component: {fileID: 1614993831}
   - component: {fileID: 1614993830}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (43)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -12602,7 +12602,7 @@ GameObject:
   - component: {fileID: 1634991624}
   - component: {fileID: 1634991623}
   - component: {fileID: 1634991622}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (55)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -12763,7 +12763,7 @@ GameObject:
   - component: {fileID: 1642459353}
   - component: {fileID: 1642459352}
   - component: {fileID: 1642459351}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (5)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -12924,7 +12924,7 @@ GameObject:
   - component: {fileID: 1650092986}
   - component: {fileID: 1650092985}
   - component: {fileID: 1650092984}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (17)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -13085,7 +13085,7 @@ GameObject:
   - component: {fileID: 1651419974}
   - component: {fileID: 1651419973}
   - component: {fileID: 1651419976}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -13246,7 +13246,7 @@ GameObject:
   - component: {fileID: 1723121557}
   - component: {fileID: 1723121556}
   - component: {fileID: 1723121555}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (22)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -13407,7 +13407,7 @@ GameObject:
   - component: {fileID: 1737342186}
   - component: {fileID: 1737342185}
   - component: {fileID: 1737342184}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (2)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -13568,7 +13568,7 @@ GameObject:
   - component: {fileID: 1755821196}
   - component: {fileID: 1755821195}
   - component: {fileID: 1755821197}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (49)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -13729,7 +13729,7 @@ GameObject:
   - component: {fileID: 1791613702}
   - component: {fileID: 1791613701}
   - component: {fileID: 1791613700}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (26)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -13890,7 +13890,7 @@ GameObject:
   - component: {fileID: 1792296810}
   - component: {fileID: 1792296809}
   - component: {fileID: 1792296808}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (29)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -14051,7 +14051,7 @@ GameObject:
   - component: {fileID: 1794350209}
   - component: {fileID: 1794350208}
   - component: {fileID: 1794350210}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (38)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -14212,7 +14212,7 @@ GameObject:
   - component: {fileID: 1803770318}
   - component: {fileID: 1803770317}
   - component: {fileID: 1803770316}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (41)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -14373,7 +14373,7 @@ GameObject:
   - component: {fileID: 1803879052}
   - component: {fileID: 1803879051}
   - component: {fileID: 1803879050}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (6)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -14534,7 +14534,7 @@ GameObject:
   - component: {fileID: 1816005737}
   - component: {fileID: 1816005736}
   - component: {fileID: 1816005738}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (29)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -14695,7 +14695,7 @@ GameObject:
   - component: {fileID: 1844393344}
   - component: {fileID: 1844393343}
   - component: {fileID: 1844393342}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (31)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -14856,7 +14856,7 @@ GameObject:
   - component: {fileID: 1849096335}
   - component: {fileID: 1849096334}
   - component: {fileID: 1849096336}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (17)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -15017,7 +15017,7 @@ GameObject:
   - component: {fileID: 1862802601}
   - component: {fileID: 1862802600}
   - component: {fileID: 1862802599}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (36)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -15178,7 +15178,7 @@ GameObject:
   - component: {fileID: 1883349134}
   - component: {fileID: 1883349133}
   - component: {fileID: 1883349132}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (11)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -15339,7 +15339,7 @@ GameObject:
   - component: {fileID: 1886580494}
   - component: {fileID: 1886580493}
   - component: {fileID: 1886580495}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (65)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -15500,7 +15500,7 @@ GameObject:
   - component: {fileID: 1950138523}
   - component: {fileID: 1950138522}
   - component: {fileID: 1950138521}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (22)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -15661,7 +15661,7 @@ GameObject:
   - component: {fileID: 1961282386}
   - component: {fileID: 1961282385}
   - component: {fileID: 1961282387}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (50)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -15822,7 +15822,7 @@ GameObject:
   - component: {fileID: 2001005373}
   - component: {fileID: 2001005372}
   - component: {fileID: 2001005371}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (1)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -15983,7 +15983,7 @@ GameObject:
   - component: {fileID: 2012134396}
   - component: {fileID: 2012134395}
   - component: {fileID: 2012134394}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (56)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -16144,7 +16144,7 @@ GameObject:
   - component: {fileID: 2028207242}
   - component: {fileID: 2028207241}
   - component: {fileID: 2028207240}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (25)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -16305,7 +16305,7 @@ GameObject:
   - component: {fileID: 2029422148}
   - component: {fileID: 2029422147}
   - component: {fileID: 2029422149}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (1)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -16466,7 +16466,7 @@ GameObject:
   - component: {fileID: 2075985847}
   - component: {fileID: 2075985846}
   - component: {fileID: 2075985845}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (24)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -16627,7 +16627,7 @@ GameObject:
   - component: {fileID: 2101643211}
   - component: {fileID: 2101643210}
   - component: {fileID: 2101643209}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (9)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -16788,7 +16788,7 @@ GameObject:
   - component: {fileID: 2132033818}
   - component: {fileID: 2132033817}
   - component: {fileID: 2132033819}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (32)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
@@ -16949,7 +16949,7 @@ GameObject:
   - component: {fileID: 2146532709}
   - component: {fileID: 2146532708}
   - component: {fileID: 2146532707}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AnimatedWalls_0 (23)
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}

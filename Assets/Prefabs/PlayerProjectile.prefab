@@ -206,4 +206,4 @@ MonoBehaviour:
   _damage: 1
   _knockback: 50
   _size: 1
-  ps: {fileID: 0}
+  ps: {fileID: 6009536360408007042, guid: e03aa6db6bfd92243802d985c856bce3, type: 3}

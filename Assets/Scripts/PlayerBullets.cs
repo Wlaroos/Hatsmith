@@ -64,11 +64,6 @@ public class PlayerBullets : MonoBehaviour
         
         yield return new WaitForSeconds(delay);
         
-        if(ps != null)
-        {
-            Instantiate(ps,transform.position,Quaternion.identity);
-        }
-        
         //CameraShaker.Instance.ShakeOnce(2f,2f,0.2f,0.2f);
         //AudioManager.PlaySound("PoisonBullet");
 
@@ -81,18 +76,24 @@ public class PlayerBullets : MonoBehaviour
         {
             Debug.Log("Destroying Bullet");
             _once = true;
+
             StartCoroutine(DestroyBullet(0f));
         }
     }
 
     private void FrozenAndTrigger()
     {
-        _rb.linearVelocity = Vector2.zero;
+        if(_rb.bodyType != RigidbodyType2D.Static) _rb.linearVelocity = Vector2.zero;
         _rb.bodyType = RigidbodyType2D.Static;
 
         _bc.enabled = false;
 
         _anim.SetTrigger("Destroy");
+
+        if(ps != null)
+        {
+            Instantiate(ps,transform.position,Quaternion.identity);
+        }
     }
 
     /* 

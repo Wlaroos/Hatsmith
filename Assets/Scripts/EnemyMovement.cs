@@ -5,13 +5,16 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private float _moveSpeed = 2f;
     [SerializeField] private float _lerpSpeed = 5f;
     [SerializeField] private float _movementLockDuration = 0.1f;
+    [SerializeField] private GameObject _hitParticles;
+    [SerializeField] private GameObject _deathParticles;
 
     private PlayerMovement _player;
     private Animator _anim;
     private Rigidbody2D _rb;
     private SpriteRenderer _sr;
     private BoxCollider2D _bc;
-    private int _health = 2;
+    private int _maxHealth = 2;
+    private int _currentHealth;
     private float _movementLockTimer;
     private bool _movementLocked;
 
@@ -46,7 +49,7 @@ public class EnemyMovement : MonoBehaviour
         }
 
         // Reset health and movement lock state
-        _health = 2;
+        _currentHealth = _maxHealth;
 
         _movementLocked = false;
         _movementLockTimer = 0f;
@@ -108,12 +111,24 @@ public class EnemyMovement : MonoBehaviour
 
     public void TakeDamage(int damage, Vector2 knockbackForce)
     {
-        _health -= damage;
+        _currentHealth -= damage;
         _movementLocked = true;
         _movementLockTimer = _movementLockDuration;
         Knockback(knockbackForce);
 
-        if (_health <= 0)
+        if (_hitParticles != null)
+        {
+            Quaternion particleRotation = Quaternion.identity;
+            if (knockbackForce.sqrMagnitude > 0f)
+            {
+                float angle = Mathf.Atan2(knockbackForce.y, knockbackForce.x) * Mathf.Rad2Deg;
+                particleRotation = Quaternion.Euler(0f, 0f, angle);
+            }
+
+            Instantiate(_hitParticles, transform.position, particleRotation);
+        }
+
+        if (_currentHealth <= 0)
         {
             _rb.linearVelocity = Vector2.zero;
             _rb.bodyType = RigidbodyType2D.Static;
@@ -135,7 +150,7 @@ public class EnemyMovement : MonoBehaviour
     public void Destroy()
     {
         Despawn();
-        _health = 2; // Reset health for reuse
+        _currentHealth = _maxHealth; // Reset health for reuse
     }
     
 }

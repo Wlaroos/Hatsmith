@@ -205,3 +205,5 @@ MonoBehaviour:
   _moveSpeed: 8
   _lerpSpeed: 8
   _movementLockDuration: 0.05
+  _hitParticles: {fileID: 1703956455698199224, guid: a952e6d4b4ad321469415b670707f82d, type: 3}
+  _deathParticles: {fileID: 6009536360408007042, guid: ac5f16ff19de51d44b5c3488ed02131a, type: 3}
