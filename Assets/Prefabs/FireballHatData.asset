@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a7525590a13a12479b8705ab9534447, type: 3}
+  m_Name: FireballHatData
+  m_EditorClassIdentifier: Assembly-CSharp::HatData
+  hatName: Fireball Hat
+  hatPrefab: {fileID: 2157295402347023227, guid: b0bcaa9c8162d544aba7eaacaec9216a, type: 3}
+  stackHeightOffset: 0.3
+  rules:
+  - rid: 4162375646634311759
+  - rid: 4162375646634311762
+  references:
+    version: 2
+    RefIds:
+    - rid: 4162375646634311759
+      type: {class: HatEffectRule, ns: , asm: Assembly-CSharp}
+      data:
+        trigger:
+          rid: 4162375646634311760
+        effect:
+          rid: 4162375646634311761
+    - rid: 4162375646634311760
+      type: {class: OnEquipTrigger, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 4162375646634311761
+      type: {class: OrbitalEffect, ns: , asm: Assembly-CSharp}
+      data:
+        orbitalPrefab: {fileID: 104384480508462922, guid: cd52ca37977494c4dbb702de24edc328, type: 3}
+        radius: 2
+        speed: 360
+        numberOfOrbitals: 5
+        maxOrbitalsPerRing: 5
+        isAdditive: 0
+    - rid: 4162375646634311762
+      type: {class: HatEffectRule, ns: , asm: Assembly-CSharp}
+      data:
+        trigger:
+          rid: 4162375646634311763
+        effect:
+          rid: 4162375646634311764
+    - rid: 4162375646634311763
+      type: {class: TickIntervalTrigger, ns: , asm: Assembly-CSharp}
+      data:
+        interval: 1
+    - rid: 4162375646634311764
+      type: {class: OrbitalEffect, ns: , asm: Assembly-CSharp}
+      data:
+        orbitalPrefab: {fileID: 104384480508462922, guid: cd52ca37977494c4dbb702de24edc328, type: 3}
+        radius: 1.5
+        speed: 360
+        numberOfOrbitals: 1
+        maxOrbitalsPerRing: 15
+        isAdditive: 1

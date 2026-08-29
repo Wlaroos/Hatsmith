@@ -1,32 +1,44 @@
 using UnityEngine;
-using System;
 
 public class PlayerWeapon : MonoBehaviour
 {
     [SerializeField] private GameObject _bulletRef;
     [SerializeField] private Transform _shootTransform;
     [SerializeField] private bool _isAuto;
-    [SerializeField] private float _fireDelay;
-    [SerializeField] private float _bulletSize;
+
     private Vector3 _gunEndPointPosition;
     private Vector3 _mousePos;
     private float _startFireTime;
-    private bool allowInput = true;
+    private PlayerStats _stats;
+    private Camera _mainCamera;
+    private bool _allowInput = true;
+
+    private void Awake()
+    {
+        _stats = GetComponentInParent<PlayerStats>();
+        _mainCamera = Camera.main;
+    }
 
     private void OnEnable()
     {
-        allowInput = true;
-        GameManager.Instance.PlayerDownedEvent += HideWeapon;
+        _allowInput = true;
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.PlayerDownedEvent += HideWeapon;
+        }
     }
 
     private void OnDisable()
     {
-        GameManager.Instance.PlayerDownedEvent -= HideWeapon;
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.PlayerDownedEvent -= HideWeapon;
+        }
     }
 
     private void Update()
     {
-        if (allowInput && Time.timeScale == 1)
+        if (_allowInput && Time.timeScale == 1)
         {
             Aim();
             ShootCheck();
@@ -35,7 +47,9 @@ public class PlayerWeapon : MonoBehaviour
 
     private void Aim()
     {
-        _mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if (_mainCamera == null) _mainCamera = Camera.main;
+
+        _mousePos = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
         _mousePos.z = 0f;
 
         Vector3 aimDir = (_mousePos - transform.position).normalized;
@@ -43,32 +57,27 @@ public class PlayerWeapon : MonoBehaviour
         transform.eulerAngles = new Vector3(0, 0, angle);
 
         Vector3 aimLocalScale = Vector3.one;
-        if (angle > 90 || angle < -90)
-        {
-            aimLocalScale.y = -1f;
-        }
-        else
-        {
-            aimLocalScale.y = 1f;
-        }
+        aimLocalScale.y = (angle > 90 || angle < -90) ? -1f : 1f;
         transform.localScale = aimLocalScale;
     }
 
     private void ShootCheck()
     {
+        float fireRate = _stats != null ? _stats.FireDelay : 0.5f;
+
         if (_isAuto)
         {
-            if (Input.GetMouseButton(0) && Time.time > _fireDelay + _startFireTime)
+            if (Input.GetMouseButton(0) && Time.time > fireRate + _startFireTime)
             {
-                CameraShake.Instance.Shake(0.05f, 0.05f);
+                CameraShake.Instance?.Shake(0.05f, 0.05f);
                 Shoot();
             }
         }
         else
         {
-            if (Input.GetMouseButtonDown(0) && Time.time > _startFireTime + _fireDelay)
+            if (Input.GetMouseButtonDown(0) && Time.time > _startFireTime + fireRate)
             {
-                CameraShake.Instance.Shake(0.05f, 0.05f);
+                CameraShake.Instance?.Shake(0.05f, 0.05f);
                 Shoot();
             } 
         }
@@ -76,22 +85,27 @@ public class PlayerWeapon : MonoBehaviour
 
     private void Shoot()
     {
-        //AudioManager.PlaySound("PoisonShot");
-        
         _gunEndPointPosition = _shootTransform.position;
 
         Transform bulletTransform = Instantiate(_bulletRef.transform, _gunEndPointPosition, Quaternion.identity);
         Vector3 shootDir = (_mousePos - _gunEndPointPosition).normalized;
         float angle = Mathf.Atan2(shootDir.y, shootDir.x) * Mathf.Rad2Deg;
 
-        bulletTransform.GetComponent<PlayerBullets>().BulletSetup(shootDir, angle, 20, 1, 3, _bulletSize);
+        float bulletSize = _stats != null ? _stats.BulletSize : 1f;
+        int damage = 1 + Mathf.RoundToInt(_stats != null ? _stats.GetDamageBonus() : 0f);
+        bulletTransform.GetComponent<PlayerBullets>()?.BulletSetup(shootDir, angle, 20, damage, 3, bulletSize);
+
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.InvokePlayerShootEvent(gameObject);
+        }
 
         _startFireTime = Time.time;
     }
 
     private void HideWeapon()
     {
-        allowInput = false;
+        _allowInput = false;
         gameObject.SetActive(false);
     }
 }

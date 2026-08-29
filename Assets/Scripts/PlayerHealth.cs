@@ -51,16 +51,33 @@ public class PlayerHealth : MonoBehaviour
 
         _currentHealth -= damage;
 
-        GameManager.Instance.InvokePlayerDamageEvent();
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.InvokePlayerDamageEvent();
+        }
 
         if (_currentHealth <= 0)
         {
-            GameManager.Instance.InvokePlayerDownedEvent();
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.InvokePlayerDownedEvent();
+                GameManager.Instance.InvokePlayerKilledEvent();
+            }
+
             Down();
             return;
         }
 
         StartCoroutine(InvincibilityFlash());
+    }
+
+    public void Heal(int amount)
+    {
+        if (_isDowned) return;
+
+        _currentHealth = Mathf.Min(_currentHealth + amount, _maxHealth);
+        GameManager.Instance.InvokePlayerHealEvent();
+        // Add visual health pickup/heal particles here
     }
 
     private IEnumerator InvincibilityFlash()

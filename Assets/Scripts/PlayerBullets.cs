@@ -52,8 +52,10 @@ public class PlayerBullets : MonoBehaviour
         }
         else if (collision.GetComponent<EnemyMovement>() != null)
         {
+            var enemy = collision.GetComponent<EnemyMovement>();
             Vector2 knockbackDirection = _rb.linearVelocity.normalized;
-            collision.GetComponent<EnemyMovement>().TakeDamage(_damage, knockbackDirection * _knockback);
+            GameManager.Instance?.InvokeEnemyHitEvent(enemy.gameObject);
+            enemy.TakeDamage(_damage, knockbackDirection * _knockback);
 
             FrozenAndTrigger();
         }

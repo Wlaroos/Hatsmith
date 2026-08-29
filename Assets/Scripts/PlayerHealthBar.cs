@@ -29,12 +29,14 @@ public class PlayerHealthBar : MonoBehaviour
     {
         GameManager.Instance.PlayerDamageEvent += UpdateHealthBar;
         GameManager.Instance.PlayerDownedEvent += UpdateHealthBar;
+        GameManager.Instance.PlayerHealEvent += UpdateHealthBar;
     }
 
     private void OnDisable()
     {
         GameManager.Instance.PlayerDamageEvent -= UpdateHealthBar;
         GameManager.Instance.PlayerDownedEvent -= UpdateHealthBar;
+        GameManager.Instance.PlayerHealEvent -= UpdateHealthBar;
     }
 
     private void UpdateHealthBar()
