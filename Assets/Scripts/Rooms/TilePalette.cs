@@ -5,7 +5,7 @@ public enum TileType
 {
     Prefab,
     PlayerSpawn,
-    CustomAction
+    Enemy
 }
 
 [System.Serializable]

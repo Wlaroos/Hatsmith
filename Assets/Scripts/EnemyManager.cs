@@ -4,6 +4,8 @@ using System.Collections;
 
 public class EnemyManager : MonoBehaviour
 {
+    public static EnemyManager Instance { get; private set; } // Added Singleton
+
     [Header("Player")]
     [SerializeField] private PlayerMovement _playerMovement;
     [SerializeField] private PlayerHealth _playerHealth;
@@ -17,49 +19,66 @@ public class EnemyManager : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance == null) Instance = this;
+        else Destroy(gameObject);
+
         if (_playerMovement == null)
-        {
             _playerMovement = FindAnyObjectByType<PlayerMovement>();
-        }
 
         if (_playerHealth == null && _playerMovement != null)
-        {
             _playerHealth = _playerMovement.GetComponent<PlayerHealth>();
-        }
 
         _mainCamera = Camera.main;
 
-        if (_enemyPrefab == null)
-        {
-            Debug.LogWarning("EnemyManager: No enemy prefab assigned.");
-        }
+        // Pre-warm the pool
+        InitializePool();
     }
 
-    private void Start()
+    private void InitializePool()
     {
-        SpawnEnemy();
-        StartCoroutine(SpawnEnemiesOverTime());
+        for (int i = 0; i < _startPoolSize; i++)
+        {
+            CreateEnemy();
+        }
     }
 
     public void SpawnEnemy()
     {
-        if (_mainCamera == null || _enemyPrefab == null)
-        {
-            return;
-        }
+        if (_mainCamera == null || _enemyPrefab == null) return;
 
         EnemyMovement enemyToSpawn = GetAvailableEnemy();
+        
+        // Dynamic growth: Expand pool if max size exceeded
         if (enemyToSpawn == null)
         {
-            if (_enemies.Count >= _startPoolSize)
-            {
-                return;
-            }
-
             enemyToSpawn = CreateEnemy();
         }
 
         enemyToSpawn.Spawn(GetOffScreenSpawnPosition());
+    }
+
+    public void SpawnEnemyAtPosition(Vector2 position)
+    {
+        if (_mainCamera == null || _enemyPrefab == null) return;
+
+        EnemyMovement enemyToSpawn = GetAvailableEnemy();
+        if (enemyToSpawn == null)
+        {
+            enemyToSpawn = CreateEnemy();
+        }
+
+        enemyToSpawn.Spawn(position);
+    }
+
+    public void ClearAllActiveEnemies()
+    {
+        foreach (EnemyMovement enemy in _enemies)
+        {
+            if (enemy != null && enemy.gameObject.activeSelf)
+            {
+                enemy.gameObject.SetActive(false);
+            }
+        }
     }
 
     private EnemyMovement GetAvailableEnemy()
@@ -71,7 +90,6 @@ public class EnemyManager : MonoBehaviour
                 return enemy;
             }
         }
-
         return null;
     }
 
@@ -81,17 +99,13 @@ public class EnemyManager : MonoBehaviour
         enemyObject.SetActive(false);
 
         EnemyMovement enemyMovement = enemyObject.GetComponent<EnemyMovement>() ?? enemyObject.AddComponent<EnemyMovement>();
-        enemyMovement.Initialize(_playerMovement, _playerHealth);
         _enemies.Add(enemyMovement);
         return enemyMovement;
     }
 
     private Vector2 GetOffScreenSpawnPosition()
     {
-        if (_mainCamera == null)
-        {
-            return Vector2.zero;
-        }
+        if (_mainCamera == null) return Vector2.zero;
 
         float halfHeight = _mainCamera.orthographicSize + _spawnPadding;
         float halfWidth = (halfHeight * _mainCamera.aspect) + _spawnPadding;

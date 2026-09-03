@@ -23,5 +23,5 @@ MonoBehaviour:
     prefab: {fileID: 2757456079485347563, guid: fc5b80238502eb14698a694bbad8ecab, type: 3}
   - tag: Enemy
     color: {r: 1, g: 0.3679244, b: 0.3679244, a: 1}
-    type: 0
+    type: 2
     prefab: {fileID: 3016540684676025272, guid: d62c7d5fcbbd3b7488ff8cc28fd5dc4f, type: 3}

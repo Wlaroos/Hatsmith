@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,153 +7,70 @@ public class EnemyMovement : MonoBehaviour
     [Header("Movement Settings")]
     [SerializeField] private float _moveSpeed = 2f;
     [SerializeField] private float _lerpSpeed = 5f;
+    [SerializeField] private float _nextWaypointDistance = 0.2f;
+    [SerializeField] private float _pathUpdateInterval = 0.25f;
 
     [Header("Knockback Settings")]
     [SerializeField] private float _movementLockDuration = 0.1f;
 
-    [Header("Flocking Settings")]
-    [SerializeField] private float _flockRadius = 2f;
-    [SerializeField] private float _flockInfluence = 0.6f;
-    [SerializeField] private float _alignmentWeight = 0.5f;
-    [SerializeField] private float _cohesionWeight = 0.25f;
-    [SerializeField] private float _separationWeight = 0.75f;
-
-    [Header("Obstacle Avoidance Settings")]
-    [SerializeField] private LayerMask _obstacleMask;
-    [SerializeField] private float _avoidanceRadius = 1.5f;
-    [SerializeField] private float _obstacleAvoidanceWeight = 1.5f;
-    [SerializeField] private int _rayCount = 8;
-
     [Header("Particle Settings")]
     [SerializeField] private GameObject _hitParticles;
-    [SerializeField] private GameObject _deathParticles;
 
     [Header("Wander Settings")]
     [SerializeField] private float _wanderRadius = 3f;
     [SerializeField] private float _wanderInterval = 1.5f;
     [SerializeField] private float _wanderSpeedMultiplier = 0.4f;
 
-    [Header("Animation Settings")]
+    [Header("Animation & Stats")]
     [SerializeField] private float _movementThreshold = 0.05f;
+    [SerializeField] private int _maxHealth = 2;
 
     private PlayerMovement _playerMovement;
     private PlayerHealth _playerHealth;
+    private Pathfinding2D _pathfinder;
     
     private Animator _anim;
     private Rigidbody2D _rb;
     private SpriteRenderer _sr;
     private BoxCollider2D _bc;
     
-    [SerializeField] private int _maxHealth = 2;
     private int _currentHealth;
     private float _movementLockTimer;
     private bool _movementLocked;
 
-    // Wander variables
+    private List<Vector3> _path;
+    private int _targetWaypointIndex;
+
     private Vector2 _wanderTarget;
     private float _wanderTimer;
 
-    private static readonly List<EnemyMovement> _activeEnemies = new();
-
     private void Awake()
     {
-        CacheComponents();
-        AutoInitialize();
-    }
-
-    private void Start()
-    {
-        // Fallback if player hasn't loaded during Awake
-        if (_playerMovement == null)
-        {
-            GetPlayerRefs();
-        }
-
-        // Initialize state if spawned outside an object pool manager
-        if (_currentHealth <= 0)
-        {
-            _currentHealth = _maxHealth;
-            _wanderTarget = transform.position;
-        }
+        _anim = GetComponent<Animator>();
+        _rb = GetComponent<Rigidbody2D>();
+        _sr = GetComponent<SpriteRenderer>();
+        _bc = GetComponent<BoxCollider2D>();
+        _pathfinder = FindFirstObjectByType<Pathfinding2D>();
+        
+        GetPlayerRefs();
+        _currentHealth = _maxHealth;
+        _wanderTarget = transform.position;
     }
 
     private void OnEnable()
     {
-        if (!_activeEnemies.Contains(this))
-        {
-            _activeEnemies.Add(this);
-        }
-
-        AutoInitialize();
-    }
-
-    private void OnDisable()
-    {
-        _activeEnemies.Remove(this);
-    }
-
-    private void AutoInitialize()
-    {
-        GetPlayerRefs();
-        CacheComponents();
-
-        if (_currentHealth <= 0)
-        {
-            _currentHealth = _maxHealth;
-        }
-
-        if (_wanderTarget == Vector2.zero)
-        {
-            _wanderTarget = transform.position;
-        }
-    }
-
-    public void Initialize(PlayerMovement playerMovement, PlayerHealth playerHealth)
-    {
-        _playerMovement = playerMovement;
-        _playerHealth = playerHealth;
-
-        GetPlayerRefs();
-        CacheComponents();
-    }
-
-    private void GetPlayerRefs()
-    {
-        if (_playerMovement == null)
-        {
-            _playerMovement = FindAnyObjectByType<PlayerMovement>();
-        }
-
-        if (_playerMovement != null)
-        {
-            _playerHealth ??= _playerMovement.GetComponent<PlayerHealth>();
-        }
-    }
-
-    private void CacheComponents()
-    {
-        _anim ??= GetComponent<Animator>();
-        _rb ??= GetComponent<Rigidbody2D>();
-        _sr ??= GetComponent<SpriteRenderer>();
-        _bc ??= GetComponent<BoxCollider2D>();
+        StartCoroutine(UpdatePathRoutine());
     }
 
     public void Spawn(Vector2 position)
     {
         transform.position = position;
-
-        GetPlayerRefs();
-        CacheComponents();
-
         _wanderTarget = position;
         _wanderTimer = 0f;
-
         _currentHealth = _maxHealth;
         _movementLocked = false;
-        _movementLockTimer = 0f;
 
         if (_bc != null) _bc.enabled = true;
-
         if (_rb != null)
         {
             _rb.bodyType = RigidbodyType2D.Dynamic;
@@ -160,38 +78,21 @@ public class EnemyMovement : MonoBehaviour
         }
 
         gameObject.SetActive(true);
-        UpdateAnimationState();
-    }
-
-    public void Despawn()
-    {
-        gameObject.SetActive(false);
     }
 
     private void Update()
     {
-        if (!gameObject.activeSelf) return;
-
-        if (_playerMovement == null)
+        if (_playerMovement == null && !GetPlayerRefs())
         {
-            GetPlayerRefs();
-            if (_playerMovement == null)
-            {
-                // Lock animation to false if no player is found
-                SetIsMovingAnimation(false);
-                return;
-            }
+            SetIsMovingAnimation(false);
+            return;
         }
 
         if (_movementLocked)
         {
             _movementLockTimer -= Time.deltaTime;
-            if (_movementLockTimer <= 0f)
-            {
-                _movementLocked = false;
-            }
+            if (_movementLockTimer <= 0f) _movementLocked = false;
             
-            // While locked/knocked back, disable walking animation
             SetIsMovingAnimation(false);
             return;
         }
@@ -202,68 +103,13 @@ public class EnemyMovement : MonoBehaviour
 
     private void Move()
     {
-        if (_rb == null || _rb.bodyType == RigidbodyType2D.Static)
-        {
-            return;
-        }
+        if (_rb == null || _rb.bodyType == RigidbodyType2D.Static) return;
 
-        // 1. Calculate Base Target Velocity (Chase or Wander)
-        Vector2 targetVelocity = ShouldWander() ? GetWanderVelocity() : GetChaseVelocity();
+        Vector2 targetVelocity = ShouldWander() ? GetWanderVelocity() : GetAStarVelocity();
 
-        // 2. Calculate Flocking Behaviors
-        Vector2 alignment = Vector2.zero;
-        Vector2 cohesion = Vector2.zero;
-        Vector2 separation = Vector2.zero;
-        int nearbyCount = 0;
-
-        foreach (EnemyMovement other in _activeEnemies)
-        {
-            if (other == null || other == this || !other.gameObject.activeSelf)
-            {
-                continue;
-            }
-
-            Vector2 offset = other.transform.position - transform.position;
-            float distance = offset.magnitude;
-            if (distance <= 0f || distance > _flockRadius)
-            {
-                continue;
-            }
-
-            nearbyCount++;
-            alignment += other._rb != null ? other._rb.linearVelocity : Vector2.zero;
-            cohesion += (Vector2)other.transform.position;
-            separation -= offset / (distance * distance + 0.0001f);
-        }
-
-        if (nearbyCount > 0)
-        {
-            alignment /= nearbyCount;
-            cohesion = (cohesion / nearbyCount) - (Vector2)transform.position;
-            separation /= nearbyCount;
-
-            Vector2 flockDirection = (alignment.normalized * _alignmentWeight) + 
-                                     (cohesion.normalized * _cohesionWeight) + 
-                                     (separation.normalized * _separationWeight);
-
-            if (flockDirection.sqrMagnitude > 0.0001f)
-            {
-                targetVelocity += flockDirection * _flockInfluence;
-            }
-        }
-
-        // 3. Calculate Obstacle Avoidance Vector
-        Vector2 avoidanceVector = GetObstacleAvoidanceDirection();
-        if (avoidanceVector.sqrMagnitude > 0.0001f)
-        {
-            targetVelocity += avoidanceVector * _obstacleAvoidanceWeight;
-        }
-
-        // 4. Apply Final Velocity
         targetVelocity = Vector2.ClampMagnitude(targetVelocity, _moveSpeed);
         _rb.linearVelocity = Vector2.Lerp(_rb.linearVelocity, targetVelocity, _lerpSpeed * Time.deltaTime);
 
-        // 5. Update Sprite Flip
         if (_sr != null)
         {
             Vector2 facingDirection = _rb.linearVelocity.sqrMagnitude > 0.01f 
@@ -277,104 +123,36 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
-    private Vector2 GetObstacleAvoidanceDirection()
+    private Vector2 GetAStarVelocity()
     {
-        if (_rayCount <= 0 || _obstacleMask == 0) return Vector2.zero;
-
-        Vector2 avoidance = Vector2.zero;
-        float angleStep = 360f / _rayCount;
-
-        ContactFilter2D filter = new ContactFilter2D();
-        filter.SetLayerMask(_obstacleMask);
-        filter.useLayerMask = true;
-        filter.useTriggers = true; 
-
-        RaycastHit2D[] hitResults = new RaycastHit2D[1];
-
-        for (int i = 0; i < _rayCount; i++)
-        {
-            float angle = i * angleStep;
-            Vector2 dir = Quaternion.Euler(0, 0, angle) * Vector2.up;
-
-            // Start raycast slightly outside enemy radius to avoid self-hitting
-            Vector2 rayOrigin = (Vector2)transform.position + (dir * 0.2f);
-
-            int hitCount = Physics2D.Raycast(rayOrigin, dir, filter, hitResults, _avoidanceRadius);
-
-            if (hitCount > 0 && hitResults[0].collider != null)
-            {
-                // Ignore self
-                if (hitResults[0].collider.transform == transform) continue;
-
-                float distanceWeight = 1f - (hitResults[0].distance / _avoidanceRadius);
-                avoidance -= dir * distanceWeight;
-            }
-        }
-
-        return avoidance.normalized;
-    }
-
-    private void UpdateAnimationState()
-    {
-        if (_rb == null || _anim == null) return;
-
-        // Check velocity against squared threshold for efficiency
-        bool isMoving = _rb.linearVelocity.sqrMagnitude > (_movementThreshold * _movementThreshold);
-        SetIsMovingAnimation(isMoving);
-    }
-
-    private void SetIsMovingAnimation(bool isMoving)
-    {
-        if (_anim != null)
-        {
-            _anim.SetBool("IsMoving", isMoving);
-        }
-    }
-
-    private bool ShouldWander()
-    {
-        return _playerHealth != null && _playerHealth.IsDowned;
-    }
-
-    private Vector2 GetChaseVelocity()
-    {
-        if (_playerMovement == null)
-        {
+        if (_path == null || _path.Count == 0 || _targetWaypointIndex >= _path.Count)
             return Vector2.zero;
-        }
 
-        return (_playerMovement.transform.position - transform.position).normalized * _moveSpeed;
-    }
+        Vector3 targetWaypoint = _path[_targetWaypointIndex];
+        Vector2 offset = targetWaypoint - transform.position;
 
-    private Vector2 GetWanderVelocity()
-    {
-        _wanderTimer -= Time.deltaTime;
-        Vector2 offset = _wanderTarget - (Vector2)transform.position;
-
-        if (_wanderTimer <= 0f || offset.sqrMagnitude <= 0.04f)
+        if (offset.sqrMagnitude <= _nextWaypointDistance * _nextWaypointDistance)
         {
-            Vector2 randomPoint = (Vector2)transform.position + Random.insideUnitCircle * _wanderRadius;
-            _wanderTarget = ClampToScreenBounds(randomPoint);
-            _wanderTimer = Random.Range(_wanderInterval * 0.5f, _wanderInterval * 1.5f);
-            offset = _wanderTarget - (Vector2)transform.position;
+            _targetWaypointIndex++;
+            if (_targetWaypointIndex >= _path.Count) return Vector2.zero;
+            offset = _path[_targetWaypointIndex] - transform.position;
         }
 
-        return offset.normalized * (_moveSpeed * _wanderSpeedMultiplier);
+        return offset.normalized * _moveSpeed;
     }
 
-    private Vector2 ClampToScreenBounds(Vector2 targetPosition)
+    private IEnumerator UpdatePathRoutine()
     {
-        Camera cam = Camera.main;
-        if (cam == null) return targetPosition;
-
-        float halfHeight = cam.orthographicSize;
-        float halfWidth = halfHeight * cam.aspect;
-
-        float margin = 1f; 
-        float clampX = Mathf.Clamp(targetPosition.x, -halfWidth + margin, halfWidth - margin);
-        float clampY = Mathf.Clamp(targetPosition.y, -halfHeight + margin, halfHeight - margin);
-
-        return new Vector2(clampX, clampY);
+        WaitForSeconds wait = new WaitForSeconds(_pathUpdateInterval);
+        while (true)
+        {
+            if (_pathfinder != null && _playerMovement != null && !ShouldWander() && !_movementLocked)
+            {
+                _path = _pathfinder.FindPath(transform.position, _playerMovement.transform.position);
+                _targetWaypointIndex = 0;
+            }
+            yield return wait;
+        }
     }
 
     public void TakeDamage(int damage, Vector2 knockbackForce)
@@ -383,28 +161,18 @@ public class EnemyMovement : MonoBehaviour
         _movementLocked = true;
         _movementLockTimer = _movementLockDuration;
         
-        // Ensure move animation halts during hit response
         SetIsMovingAnimation(false);
         Knockback(knockbackForce);
 
         if (_hitParticles != null)
         {
-            Quaternion particleRotation = Quaternion.identity;
-            if (knockbackForce.sqrMagnitude > 0f)
-            {
-                float angle = Mathf.Atan2(knockbackForce.y, knockbackForce.x) * Mathf.Rad2Deg;
-                particleRotation = Quaternion.Euler(0f, 0f, angle);
-            }
-
-            Instantiate(_hitParticles, transform.position, particleRotation);
+            float angle = knockbackForce.sqrMagnitude > 0f ? Mathf.Atan2(knockbackForce.y, knockbackForce.x) * Mathf.Rad2Deg : 0f;
+            Instantiate(_hitParticles, transform.position, Quaternion.Euler(0f, 0f, angle));
         }
 
         if (_currentHealth <= 0)
         {
-            if (GameManager.Instance != null)
-            {
-                GameManager.Instance.InvokeEnemyKilledEvent(gameObject);
-            }
+            if (GameManager.Instance != null) GameManager.Instance.InvokeEnemyKilledEvent(gameObject);
 
             _rb.linearVelocity = Vector2.zero;
             _rb.bodyType = RigidbodyType2D.Static;
@@ -422,6 +190,46 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
+    private bool GetPlayerRefs()
+    {
+        _playerMovement ??= FindFirstObjectByType<PlayerMovement>();
+        if (_playerMovement != null)
+        {
+            _playerHealth ??= _playerMovement.GetComponent<PlayerHealth>();
+        }
+        return _playerMovement != null;
+    }
+
+    private bool ShouldWander() => _playerHealth != null && _playerHealth.IsDowned;
+
+    private Vector2 GetWanderVelocity()
+    {
+        _wanderTimer -= Time.deltaTime;
+        Vector2 offset = _wanderTarget - (Vector2)transform.position;
+
+        if (_wanderTimer <= 0f || offset.sqrMagnitude <= 0.04f)
+        {
+            _wanderTarget = (Vector2)transform.position + Random.insideUnitCircle * _wanderRadius;
+            _wanderTimer = Random.Range(_wanderInterval * 0.5f, _wanderInterval * 1.5f);
+            offset = _wanderTarget - (Vector2)transform.position;
+        }
+
+        return offset.normalized * (_moveSpeed * _wanderSpeedMultiplier);
+    }
+
+    private void UpdateAnimationState()
+    {
+        if (_rb != null && _anim != null)
+        {
+            SetIsMovingAnimation(_rb.linearVelocity.sqrMagnitude > (_movementThreshold * _movementThreshold));
+        }
+    }
+
+    private void SetIsMovingAnimation(bool isMoving)
+    {
+        if (_anim != null) _anim.SetBool("IsMoving", isMoving);
+    }
+
     private void Knockback(Vector2 force)
     {
         if (_rb != null && _rb.bodyType != RigidbodyType2D.Static)
@@ -431,25 +239,21 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
-    public void Destroy()
+    public void Destroy() 
     {
-        if (gameObject.activeSelf)
-        {
-            Destroy(gameObject);
-        }
+        // Deactivate to return back to EnemyManager pool instead of destroying
+        gameObject.SetActive(false);
     }
 
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmos()
     {
-        // Visualizes obstacle avoidance rays in the Editor when selecting the enemy
-        Gizmos.color = Color.red;
-        float angleStep = 360f / Mathf.Max(1, _rayCount);
+        if (_path == null || _path.Count == 0) return;
 
-        for (int i = 0; i < _rayCount; i++)
+        Gizmos.color = Color.green;
+        for (int i = _targetWaypointIndex; i < _path.Count; i++)
         {
-            float angle = i * angleStep;
-            Vector2 dir = Quaternion.Euler(0, 0, angle) * Vector2.up;
-            Gizmos.DrawLine(transform.position, (Vector2)transform.position + dir * _avoidanceRadius);
+            Gizmos.DrawCube(_path[i], Vector3.one * 0.15f);
+            Gizmos.DrawLine(i == _targetWaypointIndex ? transform.position : _path[i - 1], _path[i]);
         }
     }
 }

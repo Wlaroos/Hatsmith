@@ -3,16 +3,19 @@ using UnityEngine;
 public class LevelGenerator2D : MonoBehaviour
 {
     [Header("Generator Data")]
-    [SerializeField]private TilePalette palette;
-    [SerializeField]private float tileSize = 1f;
+    [SerializeField] private TilePalette palette;
+    [SerializeField] private float tileSize = 1f;
 
     [Header("Runtime Spawn Targets")]
-    [SerializeField]private Transform roomParent;
-    [SerializeField]private Transform playerTransform; // Assign in inspector or auto-find at runtime
+    [SerializeField] private Transform roomParent;
+    [SerializeField] private Transform playerTransform;
+
+    private Grid2D _grid;
 
     private void Awake()
     {
-        // Auto-locate references if missing
+        _grid = FindFirstObjectByType<Grid2D>();
+
         if (playerTransform == null)
         {
             PlayerMovement player = FindAnyObjectByType<PlayerMovement>();
@@ -32,18 +35,15 @@ public class LevelGenerator2D : MonoBehaviour
 
         Transform container = roomParent != null ? roomParent : transform;
 
-        // Auto-locate player if reference is missing
         if (playerTransform == null)
         {
             PlayerMovement player = FindAnyObjectByType<PlayerMovement>();
             if (player != null) playerTransform = player.transform;
         }
 
-        // Calculate total world dimensions of the room
         float roomWidth = mapTexture.width * tileSize;
         float roomHeight = mapTexture.height * tileSize;
 
-        // Center offset relative to roomParent
         Vector3 centerOffset = new Vector3(
             (roomWidth / 2f) - (tileSize / 2f),
             (roomHeight / 2f) - (tileSize / 2f),
@@ -65,13 +65,14 @@ public class LevelGenerator2D : MonoBehaviour
                         Vector3 rawPosition = new Vector3(x * tileSize, y * tileSize, 0f);
                         Vector3 targetPosition = container.position + rawPosition - centerOffset;
 
-                        // Process tile based on its configured type
                         ProcessTileMapping(mapping, targetPosition, container);
                         break;
                     }
                 }
             }
         }
+
+        UpdatePathfindingGrid();
     }
 
     private void ProcessTileMapping(TileMapping mapping, Vector3 worldPosition, Transform container)
@@ -89,9 +90,21 @@ public class LevelGenerator2D : MonoBehaviour
                 TeleportPlayer(worldPosition);
                 break;
 
-            case TileType.CustomAction:
-                HandleCustomAction(mapping.Tag, worldPosition, container);
+            case TileType.Enemy:
+                SpawnPooledEnemy(worldPosition);
                 break;
+        }
+    }
+
+    private void SpawnPooledEnemy(Vector3 worldPosition)
+    {
+        if (EnemyManager.Instance != null)
+        {
+            EnemyManager.Instance.SpawnEnemyAtPosition(worldPosition);
+        }
+        else
+        {
+            Debug.LogWarning("Enemy tile detected, but no EnemyManager instance found in the scene!");
         }
     }
 
@@ -99,7 +112,6 @@ public class LevelGenerator2D : MonoBehaviour
     {
         if (playerTransform != null)
         {
-            // Reset velocity if Rigidbody2D is attached to prevent physics slide after teleport
             Rigidbody2D playerRb = playerTransform.GetComponent<Rigidbody2D>();
             if (playerRb != null)
             {
@@ -115,36 +127,27 @@ public class LevelGenerator2D : MonoBehaviour
         }
     }
 
-    private void HandleCustomAction(string actionTag, Vector3 position, Transform container)
+    public void SpawnRandomRoom()
     {
-        // Examples for now until I find a better system for custom actions
-        switch (actionTag)
+        Texture2D[] allRooms = Resources.LoadAll<Texture2D>("Rooms");
+        if (allRooms.Length > 0)
         {
-            case "RoomExit":
-                Debug.Log($"Spawned Room Exit Trigger at {position}");
-                break;
-            default:
-                Debug.Log($"Executed Custom Action '{actionTag}' at {position}");
-                break;
+            Texture2D randomRoom = allRooms[Random.Range(0, allRooms.Length)];
+            GenerateLevelFromTexture(randomRoom);
+        }
+        else
+        {
+            Debug.LogError("No room textures found in Resources/Rooms");
         }
     }
 
-    public void SpawnRandomRoom()
-{
-    Texture2D[] allRooms = Resources.LoadAll<Texture2D>("Rooms");
-    if (allRooms.Length > 0)
-    {
-        Texture2D randomRoom = allRooms[Random.Range(0, allRooms.Length)];
-        GenerateLevelFromTexture(randomRoom);
-    }
-    else
-    {
-        Debug.LogError("No room textures found in Resources/Rooms");
-    }
-}
-
     public void ClearLevel()
     {
+        if (EnemyManager.Instance != null)
+        {
+            EnemyManager.Instance.ClearAllActiveEnemies();
+        }
+
         Transform container = roomParent != null ? roomParent : transform;
         for (int i = container.childCount - 1; i >= 0; i--)
         {
@@ -157,11 +160,24 @@ public class LevelGenerator2D : MonoBehaviour
 
     public void StartRoomLoad()
     {
-        Texture2D roomTexture = Resources.Load<Texture2D>("SpecialRooms/Start_Room"); // Load the start room texture from Resources
+        Texture2D roomTexture = Resources.Load<Texture2D>("SpecialRooms/Start_Room");
 
         if (roomTexture != null)
         {
             GenerateLevelFromTexture(roomTexture);
+        }
+    }
+
+    private void UpdatePathfindingGrid()
+    {
+        if (_grid == null)
+        {
+            _grid = FindFirstObjectByType<Grid2D>();
+        }
+
+        if (_grid != null)
+        {
+            _grid.CreateGrid();
         }
     }
 
