@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1d2b00c0068c934b904f9114e555423, type: 3}
+  m_Name: TESTPalette
+  m_EditorClassIdentifier: Assembly-CSharp::TilePalette
+  mappings:
+  - tag: Player Spawn
+    color: {r: 0.49355584, g: 1, b: 0.33773577, a: 1}
+    type: 1
+    prefab: {fileID: 0}
+  - tag: Wall
+    color: {r: 1, g: 1, b: 1, a: 1}
+    type: 0
+    prefab: {fileID: 2757456079485347563, guid: fc5b80238502eb14698a694bbad8ecab, type: 3}
+  - tag: Enemy
+    color: {r: 1, g: 0.3679244, b: 0.3679244, a: 1}
+    type: 0
+    prefab: {fileID: 3016540684676025272, guid: d62c7d5fcbbd3b7488ff8cc28fd5dc4f, type: 3}

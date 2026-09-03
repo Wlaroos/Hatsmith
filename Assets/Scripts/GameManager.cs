@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public event Action<GameObject> PlayerShootEvent = delegate { };
     public event Action<GameObject> EnemyHitEvent = delegate { };
     public event Action<GameObject> EnemyKilledEvent = delegate { };
+    private LevelGenerator2D roomGenerator;
 
     private void Awake()
     {
@@ -24,6 +25,11 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        // Find the LevelGenerator2D in the scene even after scene reloads
+        roomGenerator = FindFirstObjectByType<LevelGenerator2D>();
+
+        roomGenerator.StartRoomLoad();
     }
 
     private void Update()
@@ -35,7 +41,14 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R))
         {
+            roomGenerator.ClearLevel();
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            roomGenerator.StartRoomLoad();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            roomGenerator.SpawnRandomRoom();
         }
     }
 
