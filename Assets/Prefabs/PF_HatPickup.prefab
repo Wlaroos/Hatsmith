@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 763991832675297343}
   - component: {fileID: 4216338571589899311}
-  - component: {fileID: -2978487906485064485}
-  - component: {fileID: -763070828370843452}
+  - component: {fileID: 2353873444117508649}
+  - component: {fileID: 1470876933057352211}
   m_Layer: 0
-  m_Name: HealHat
+  m_Name: PF_HatPickup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -83,7 +83,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 799639845, guid: 7ca2d6d7c81d7a24198477d5de7c0512, type: 3}
+  m_Sprite: {fileID: 178651668, guid: 7ca2d6d7c81d7a24198477d5de7c0512, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -93,7 +93,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!61 &-2978487906485064485
+--- !u!61 &2353873444117508649
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -131,7 +131,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 0.875}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 0.875}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -139,7 +139,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 0.875}
   m_EdgeRadius: 0
---- !u!114 &-763070828370843452
+--- !u!114 &1470876933057352211
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -151,5 +151,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 590cf22b072016247b94991e462eafd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HatPickup
-  hatData: {fileID: 11400000, guid: b59baa51644f11f488604c39f49dd5f4, type: 2}
-  destroyOnPickup: 1
+  _hatData: {fileID: 11400000, guid: 8bf2ce1c298017a4681e5637493f1529, type: 2}
+  _destroyOnPickup: 1

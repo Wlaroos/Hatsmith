@@ -4,14 +4,38 @@ using UnityEngine;
 public class HatPickup : MonoBehaviour
 {
     [Header("Data")]
-    [SerializeField] private HatData hatData;
-
+    [SerializeField] private HatData _hatData;
     [Header("Settings")]
-    [SerializeField] private bool destroyOnPickup = true;
+    [SerializeField] private bool _destroyOnPickup = true;
+    private SpriteRenderer _sr;
+    public HatData Data => _hatData;
+
+    private void OnValidate()
+    {
+        // Automatically sync visual sprite in the editor when HatData changes
+        if (_hatData != null && _hatData.hatSprite != null)
+        {
+            if (_sr == null)
+            {
+                _sr = GetComponent<SpriteRenderer>();
+            }
+
+            if (_sr != null)
+            {
+                _sr.sprite = _hatData.hatSprite;
+            }
+            else
+            {
+                Debug.LogWarning($"[HatPickup] No SpriteRenderer found on {gameObject.name} to sync with HatData sprite!");
+            }
+        }
+    }
 
     private void Awake()
     {
         Collider2D col = GetComponent<Collider2D>();
+        _sr = GetComponent<SpriteRenderer>();
+
         if (col != null)
         {
             col.isTrigger = true;
@@ -20,21 +44,14 @@ public class HatPickup : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // Try getting HatStackManager directly from collider or root object
-        HatStackManager stackManager = other.GetComponent<HatStackManager>();
-        if (stackManager == null)
-        {
-            stackManager = other.GetComponentInParent<HatStackManager>();
-        }
+        HatStackManager stackManager = other.GetComponent<HatStackManager>() ?? other.GetComponentInParent<HatStackManager>();
 
         if (stackManager != null)
         {
-            if (hatData != null)
+            if (_hatData != null)
             {
-                // Disable collider immediately to prevent double-pickup in the same frame
                 GetComponent<Collider2D>().enabled = false;
-                
-                stackManager.EquipHat(hatData);
+                stackManager.EquipHat(_hatData);
             }
             else
             {
@@ -42,7 +59,7 @@ public class HatPickup : MonoBehaviour
                 return;
             }
 
-            if (destroyOnPickup)
+            if (_destroyOnPickup)
             {
                 Destroy(gameObject);
             }

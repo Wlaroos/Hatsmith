@@ -29,8 +29,11 @@ public class EnemyManager : MonoBehaviour
             _playerHealth = _playerMovement.GetComponent<PlayerHealth>();
 
         _mainCamera = Camera.main;
+    }
 
-        // Pre-warm the pool
+    private void Start()
+    {
+        // Pre-instantiate enemies to fill the pool
         InitializePool();
     }
 

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: HealHatData
   m_EditorClassIdentifier: Assembly-CSharp::HatData
   hatName: Angel Hat
-  hatPrefab: {fileID: 2157295402347023227, guid: d3d4c2e39eac2884db336cbdece4b680, type: 3}
+  hatSprite: {fileID: 799639845, guid: 7ca2d6d7c81d7a24198477d5de7c0512, type: 3}
   stackHeightOffset: 0.3
   rules:
   - rid: 4162375646634311750

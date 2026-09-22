@@ -4,21 +4,22 @@ using UnityEngine;
 
 public class HatStackManager : MonoBehaviour
 {
-    [SerializeField] private Transform headAnchor;
-    private List<HatInstance> equippedHats = new List<HatInstance>();
+    [SerializeField] private GameObject _hatPrefab;
+    [SerializeField] private Transform _headAnchor;
+    private List<HatInstance> _equippedHats = new List<HatInstance>();
 
     private void Awake()
     {
         // Fallback
-        if (headAnchor == null)
+        if (_headAnchor == null)
         {
-            headAnchor = transform;
+            _headAnchor = transform;
         }
     }
 
     public void EquipHat(HatData hatData)
     {
-        if (hatData == null || hatData.hatPrefab == null)
+        if (hatData == null || _hatPrefab == null)
         {
             Debug.LogError($"[HatStackManager] Cannot equip hat: HatData or hatPrefab is null!");
             return;
@@ -26,7 +27,7 @@ public class HatStackManager : MonoBehaviour
 
         // Calculate total vertical 2D stacking offset
         float currentHeightOffset = 0f;
-        foreach (var h in equippedHats)
+        foreach (var h in _equippedHats)
         {
             if (h != null && h.Data != null)
             {
@@ -35,7 +36,7 @@ public class HatStackManager : MonoBehaviour
         }
 
         // Instantiate hat as child of the anchor
-        GameObject newHatGO = Instantiate(hatData.hatPrefab, headAnchor);
+        GameObject newHatGO = Instantiate(_hatPrefab, _headAnchor);
         
         // Reset transform values for clean 2D positioning
         newHatGO.transform.localPosition = new Vector3(0f, currentHeightOffset, 0f);
@@ -52,25 +53,30 @@ public class HatStackManager : MonoBehaviour
         {
             col.enabled = false;
         }
+        // Set the sprite to match the HatData
+        if (newHatGO.TryGetComponent<SpriteRenderer>(out var sr) && hatData.hatSprite != null)
+        {
+            sr.sprite = hatData.hatSprite;
+        }
 
         // Attach and initialize HatInstance component
         HatInstance hatInstance = newHatGO.AddComponent<HatInstance>();
         hatInstance.Initialize(this.gameObject, hatData);
-        equippedHats.Add(hatInstance);
+        _equippedHats.Add(hatInstance);
     }
 
     public void UnequipTopHat()
     {
-        if (equippedHats.Count == 0) return;
+        if (_equippedHats.Count == 0) return;
 
-        int lastIndex = equippedHats.Count - 1;
-        HatInstance topHat = equippedHats[lastIndex];
+        int lastIndex = _equippedHats.Count - 1;
+        HatInstance topHat = _equippedHats[lastIndex];
 
         if (topHat != null)
         {
             topHat.Remove();
         }
 
-        equippedHats.RemoveAt(lastIndex);
+        _equippedHats.RemoveAt(lastIndex);
     }
 }
