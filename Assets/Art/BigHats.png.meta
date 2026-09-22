@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: 7ca2d6d7c81d7a24198477d5de7c0512
+guid: 6e822a4fd3f9c4046b8989f899111496
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1182784195508335311
-    second: Hats_0
+      213: 6722296467876901231
+    second: BigHats_0
+  - first:
+      213: 1496784655817119623
+    second: BigHats_1
+  - first:
+      213: -4714329226975970322
+    second: BigHats_2
+  - first:
+      213: 6814562778751927398
+    second: BigHats_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +60,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 8
+  spritePixelsToUnits: 12
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -101,7 +110,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -113,13 +122,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Hats_0
+      name: BigHats_0
       rect:
         serializedVersion: 2
         x: 2
         y: 2
-        width: 6
-        height: 3
+        width: 10
+        height: 6
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,162 +137,74 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: fc2783b85f71a6010800000000000000
-      internalID: 1182784195508335311
+      spriteID: f617aa275056a4d50800000000000000
+      internalID: 6722296467876901231
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Hats_1
+      name: BigHats_1
       rect:
         serializedVersion: 2
-        x: 10
+        x: 13
         y: 2
-        width: 8
-        height: 3
+        width: 10
+        height: 6
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 91fef9dbcab49854e9fd14f5736be1aa
-      internalID: -196752008
+      spriteID: 7871c33d6b5a5c410800000000000000
+      internalID: 1496784655817119623
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Hats_2
+      name: BigHats_2
       rect:
         serializedVersion: 2
-        x: 20
+        x: 24
         y: 2
-        width: 6
-        height: 3
+        width: 9
+        height: 6
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: a91ca97be3c789a4ebf93060657de6d5
-      internalID: 1078248972
+      spriteID: eebfadfab86539eb0800000000000000
+      internalID: -4714329226975970322
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Hats_3
+      name: BigHats_3
       rect:
         serializedVersion: 2
-        x: 29
+        x: 34
         y: 2
-        width: 6
-        height: 3
+        width: 10
+        height: 5
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 89c38d51666dd214885d7729d45862c6
-      internalID: 551209531
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Hats_4
-      rect:
-        serializedVersion: 2
-        x: 37
-        y: 2
-        width: 8
-        height: 3
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c0b99952f19f0414f9e06ebe73a25fb4
-      internalID: 479534191
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Hats_5
-      rect:
-        serializedVersion: 2
-        x: 46
-        y: 2
-        width: 8
-        height: 3
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 31b6834994fee8b4a8a6a9c999abe3b3
-      internalID: 799639845
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Hats_6
-      rect:
-        serializedVersion: 2
-        x: 55
-        y: 2
-        width: 8
-        height: 3
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8f2dcccd92aec89439368d6c4923de94
-      internalID: -829825918
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Hats_7
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 2
-        width: 8
-        height: 3
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b8b1ae05f0e061245b86978e5225a063
-      internalID: 178651668
+      spriteID: 6648b1ffdb0329e50800000000000000
+      internalID: 6814562778751927398
       vertices: []
       indices: 
       edges: []
@@ -292,7 +213,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 783a9601149e4d44f9bf4e0f563ef8ae
+    spriteID: 57bafcad27356314e8b906f54055f81d
     internalID: 0
     vertices: []
     indices: 
@@ -300,22 +221,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries:
-      - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+      entries: []
     nameFileIdTable:
-      Hats_0: 1182784195508335311
-      Hats_1: -196752008
-      Hats_10: -629889479
-      Hats_11: -1127792044
-      Hats_2: 1078248972
-      Hats_3: 551209531
-      Hats_4: 479534191
-      Hats_5: 799639845
-      Hats_6: -829825918
-      Hats_7: 178651668
-      Hats_8: 1824690861
-      Hats_9: 610448133
+      BigHats_0: 6722296467876901231
+      BigHats_1: 1496784655817119623
+      BigHats_2: -4714329226975970322
+      BigHats_3: 6814562778751927398
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

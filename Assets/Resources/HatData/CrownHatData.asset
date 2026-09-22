@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a7525590a13a12479b8705ab9534447, type: 3}
+  m_Name: CrownHatData
+  m_EditorClassIdentifier: Assembly-CSharp::HatData
+  hatName: Crown Hat
+  hatSprite: {fileID: 6722296467876901231, guid: 6e822a4fd3f9c4046b8989f899111496, type: 3}
+  stackHeightOffset: 0.4
+  rules:
+  - rid: 2294535047554007107
+  references:
+    version: 2
+    RefIds:
+    - rid: 2294535047554007107
+      type: {class: HatEffectRule, ns: , asm: Assembly-CSharp}
+      data:
+        trigger:
+          rid: 2294535047554007108
+        effect:
+          rid: 2294535047554007109
+    - rid: 2294535047554007108
+      type: {class: OnKillTrigger, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 2294535047554007109
+      type: {class: RetaliateBulletEffect, ns: , asm: Assembly-CSharp}
+      data:
+        bulletPrefab: {fileID: 104384480508462922, guid: cd52ca37977494c4dbb702de24edc328, type: 3}
+        bulletData: {fileID: 11400000, guid: 44b93c3def51f064a82dbc188e54cac5, type: 2}
+        bulletCount: 3
+        spawnOrigin: 1

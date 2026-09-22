@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlayerWeapon : MonoBehaviour
 {
     [SerializeField] private GameObject _bulletRef;
+    [SerializeField] private BulletData _bulletData; // Assign your ScriptableObject here
     [SerializeField] private Transform _shootTransform;
     [SerializeField] private bool _isAuto;
 
@@ -91,9 +92,13 @@ public class PlayerWeapon : MonoBehaviour
         Vector3 shootDir = (_mousePos - _gunEndPointPosition).normalized;
         float angle = Mathf.Atan2(shootDir.y, shootDir.x) * Mathf.Rad2Deg;
 
-        float bulletSize = _stats != null ? _stats.BulletSize : 1f;
-        int damage = 1 + Mathf.RoundToInt(_stats != null ? _stats.GetDamageBonus() : 0f);
-        bulletTransform.GetComponent<PlayerBullets>()?.BulletSetup(shootDir, angle, 20, damage, 3, bulletSize);
+        float bulletSizeMultiplier = _stats != null ? _stats.BulletSize : 1f;
+        int damageBonus = Mathf.RoundToInt(_stats != null ? _stats.GetDamageBonus() : 0f);
+
+        if (bulletTransform.TryGetComponent<BulletProjectile>(out var bulletScript))
+        {
+            bulletScript.BulletSetup(_bulletData, shootDir, angle, bulletSizeMultiplier, damageBonus);
+        }
 
         if (GameManager.Instance != null)
         {

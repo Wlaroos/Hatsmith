@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: FireballHatData
   m_EditorClassIdentifier: Assembly-CSharp::HatData
   hatName: Fireball Hat
-  hatSprite: {fileID: 178651668, guid: 7ca2d6d7c81d7a24198477d5de7c0512, type: 3}
-  stackHeightOffset: 0.3
+  hatSprite: {fileID: 1496784655817119623, guid: 6e822a4fd3f9c4046b8989f899111496, type: 3}
+  stackHeightOffset: 0.6
   rules:
   - rid: 4162375646634311759
   - rid: 4162375646634311762

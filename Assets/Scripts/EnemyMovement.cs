@@ -174,8 +174,11 @@ public class EnemyMovement : MonoBehaviour
         {
             if (GameManager.Instance != null) GameManager.Instance.InvokeEnemyKilledEvent(gameObject);
 
-            _rb.linearVelocity = Vector2.zero;
-            _rb.bodyType = RigidbodyType2D.Static;
+            if(_rb.bodyType != RigidbodyType2D.Static)
+            {
+                _rb.linearVelocity = Vector2.zero;
+                _rb.bodyType = RigidbodyType2D.Static;
+            }
             if (_bc != null) _bc.enabled = false;
 
             if (_anim != null)

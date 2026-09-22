@@ -7,48 +7,77 @@ public class HatPickup : MonoBehaviour
     [SerializeField] private HatData _hatData;
     [Header("Settings")]
     [SerializeField] private bool _destroyOnPickup = true;
+    
     private SpriteRenderer _sr;
+    private BoxCollider2D _col;
+    
     public HatData Data => _hatData;
 
     private void OnValidate()
     {
-        // Automatically sync visual sprite in the editor when HatData changes
-        if (_hatData != null && _hatData.hatSprite != null)
+        // In Editor
+        if (_sr == null)
         {
-            if (_sr == null)
-            {
-                _sr = GetComponent<SpriteRenderer>();
-            }
+            _sr = GetComponent<SpriteRenderer>();
+        }
+        if (_col == null)
+        {
+            _col = GetComponent<BoxCollider2D>();
+        }
 
-            if (_sr != null)
-            {
-                _sr.sprite = _hatData.hatSprite;
-            }
-            else
-            {
-                Debug.LogWarning($"[HatPickup] No SpriteRenderer found on {gameObject.name} to sync with HatData sprite!");
-            }
+        if (_sr == null || _hatData == null) return;
+
+        // Only update if the sprite in _hatData differs from current SpriteRenderer sprite
+        if (_sr.sprite != _hatData.hatSprite)
+        {
+#if UNITY_EDITOR
+            // Unsubscribe first to ensure there aren't multiple callbacks
+            UnityEditor.EditorApplication.delayCall -= UpdateSpriteInEditor;
+            UnityEditor.EditorApplication.delayCall += UpdateSpriteInEditor;
+#endif
         }
     }
 
+    #if UNITY_EDITOR
+    private void UpdateSpriteInEditor()
+    {
+        UnityEditor.EditorApplication.delayCall -= UpdateSpriteInEditor;
+
+        if (this != null && _sr != null && _hatData != null)
+        {
+            _sr.sprite = _hatData.hatSprite;
+            _col.size = _sr.sprite.bounds.size;
+            _col.offset = _sr.sprite.bounds.center;
+        }
+    }
+    #endif
+
     private void Awake()
     {
-        Collider2D col = GetComponent<Collider2D>();
+        _col = GetComponent<BoxCollider2D>();
         _sr = GetComponent<SpriteRenderer>();
 
-        if (col != null)
+        if (_col != null)
         {
-            col.isTrigger = true;
+            _col.isTrigger = true;
+        }
+
+        // Apply sprite at runtime
+        if (_sr != null && _hatData != null)
+        {
+            _sr.sprite = _hatData.hatSprite;
+            _col.size = _sr.sprite.bounds.size;
+            _col.offset = _sr.sprite.bounds.center;
         }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        HatStackManager stackManager = other.GetComponent<HatStackManager>() ?? other.GetComponentInParent<HatStackManager>();
+        HatStackManager stackManager = other.GetComponent<HatStackManager>();
 
         if (stackManager != null)
         {
-            if (_hatData != null)
+            if (_hatData != null )
             {
                 GetComponent<Collider2D>().enabled = false;
                 stackManager.EquipHat(_hatData);
