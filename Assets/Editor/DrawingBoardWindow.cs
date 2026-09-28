@@ -22,6 +22,11 @@ public class DrawingBoardWindow : EditorWindow
     private string fileName = "RoomMap_01";
     private Vector2 scrollPosition;
 
+    // Resources Import State
+    private string resourcesFolderPath = "Rooms";
+    private int selectedResourceIndex = 0;
+    private string[] availableResourceNames = new string[0];
+
     // Shape Drawing Drag State
     private bool isDraggingShape = false;
     private bool isRightClickAction = false;
@@ -36,6 +41,7 @@ public class DrawingBoardWindow : EditorWindow
 
     private void OnEnable()
     {
+        RefreshResourceList();
         if (targetTexture == null)
         {
             CreateNewTexture();
@@ -52,6 +58,8 @@ public class DrawingBoardWindow : EditorWindow
 
             try
             {
+                DrawResourceImportGUI();
+                EditorGUILayout.Space(10);
                 DrawControlsGUI();
                 EditorGUILayout.Space(15);
                 DrawCanvasGUI();
@@ -65,6 +73,91 @@ public class DrawingBoardWindow : EditorWindow
         {
             EditorGUILayout.EndScrollView();
         }
+    }
+
+    private void RefreshResourceList()
+    {
+        Texture2D[] loadedTextures = Resources.LoadAll<Texture2D>(resourcesFolderPath);
+        availableResourceNames = new string[loadedTextures.Length];
+
+        for (int i = 0; i < loadedTextures.Length; i++)
+        {
+            availableResourceNames[i] = loadedTextures[i].name;
+        }
+    }
+
+    private void DrawResourceImportGUI()
+    {
+        EditorGUILayout.LabelField("Import Existing Room Layout", EditorStyles.boldLabel);
+
+        EditorGUI.BeginChangeCheck();
+        resourcesFolderPath = EditorGUILayout.TextField("Resources Subfolder", resourcesFolderPath);
+        if (EditorGUI.EndChangeCheck())
+        {
+            RefreshResourceList();
+        }
+
+        if (availableResourceNames != null && availableResourceNames.Length > 0)
+        {
+            EditorGUILayout.BeginHorizontal();
+            selectedResourceIndex = EditorGUILayout.Popup("Select Room", Mathf.Clamp(selectedResourceIndex, 0, availableResourceNames.Length - 1), availableResourceNames);
+
+            if (GUILayout.Button("Refresh", GUILayout.Width(60)))
+            {
+                RefreshResourceList();
+            }
+            EditorGUILayout.EndHorizontal();
+
+            GUI.backgroundColor = new Color(0.4f, 0.7f, 1f);
+            if (GUILayout.Button("Import Selected Texture to Canvas", GUILayout.Height(25)))
+            {
+                LoadTextureFromResources(resourcesFolderPath, availableResourceNames[selectedResourceIndex]);
+            }
+            GUI.backgroundColor = Color.white;
+        }
+        else
+        {
+            EditorGUILayout.HelpBox($"No Texture2D files found in Resources/{resourcesFolderPath}", MessageType.Info);
+        }
+    }
+
+    private void LoadTextureFromResources(string folder, string roomName)
+    {
+        string fullPath = string.IsNullOrEmpty(folder) ? roomName : $"{folder}/{roomName}";
+        Texture2D srcTex = Resources.Load<Texture2D>(fullPath);
+
+        if (srcTex == null)
+        {
+            Debug.LogError($"[DrawingBoardWindow] Failed to load layout from Resources at path: '{fullPath}'");
+            return;
+        }
+
+        // Ensure asset importer allows reading pixel data
+        string assetPath = AssetDatabase.GetAssetPath(srcTex);
+        TextureImporter importer = AssetImporter.GetAtPath(assetPath) as TextureImporter;
+        if (importer != null && !importer.isReadable)
+        {
+            importer.isReadable = true;
+            importer.SaveAndReimport();
+            srcTex = Resources.Load<Texture2D>(fullPath);
+        }
+
+        // Update settings to match the loaded room asset
+        textureWidth = srcTex.width;
+        textureHeight = srcTex.height;
+        fileName = srcTex.name;
+
+        // Copy pixel data to editable target texture
+        targetTexture = new Texture2D(textureWidth, textureHeight)
+        {
+            filterMode = FilterMode.Point,
+            wrapMode = TextureWrapMode.Clamp
+        };
+
+        targetTexture.SetPixels(srcTex.GetPixels());
+        targetTexture.Apply();
+
+        Debug.Log($"<color=cyan>Loaded Room Texture from Resources:</color> {fullPath} ({textureWidth}x{textureHeight})");
     }
 
     private void DrawControlsGUI()
@@ -416,70 +509,34 @@ public class DrawingBoardWindow : EditorWindow
             Directory.CreateDirectory(folderPath);
         }
 
-        string currentName = string.IsNullOrWhiteSpace(fileName)
+        string defaultName = string.IsNullOrWhiteSpace(fileName)
             ? "RoomMap_" + System.DateTime.Now.ToString("yyyyMMdd_HHmmss")
             : fileName.Trim();
 
-        if (currentName.EndsWith(".png", System.StringComparison.OrdinalIgnoreCase))
+        // Open Unity's native save panel inside Assets/Resources/Rooms
+        string savePath = EditorUtility.SaveFilePanel(
+            "Save Room Layout PNG",
+            folderPath,
+            defaultName,
+            "png"
+        );
+
+        // User canceled the file dialog
+        if (string.IsNullOrEmpty(savePath))
         {
-            currentName = currentName.Substring(0, currentName.Length - 4);
+            return;
         }
 
-        string fullPath = Path.Combine(folderPath, currentName + ".png");
-
-        // Loop handles potential name collisions recursively if a newly entered name also exists
-        while (File.Exists(fullPath))
-        {
-            int option = EditorUtility.DisplayDialogComplex(
-                "File Already Exists",
-                $"A room map named \"{currentName}.png\" already exists in Assets/Resources/Rooms.\nWhat would you like to do?",
-                "Overwrite",    // Option 0
-                "Rename File",  // Option 1
-                "Cancel"       // Option 2
-            );
-
-            if (option == 2) // Cancel
-            {
-                return;
-            }
-            else if (option == 1) // Open Custom Input Window
-            {
-                string newNameEntered = null;
-                RenameFileDialog.ShowWindow(currentName, (enteredName) =>
-                {
-                    newNameEntered = enteredName;
-                });
-
-                // If user closed dialog or provided empty string, abort save
-                if (string.IsNullOrWhiteSpace(newNameEntered))
-                {
-                    return;
-                }
-
-                currentName = newNameEntered.Trim();
-                if (currentName.EndsWith(".png", System.StringComparison.OrdinalIgnoreCase))
-                {
-                    currentName = currentName.Substring(0, currentName.Length - 4);
-                }
-
-                fileName = currentName; // Update main UI text field
-                fullPath = Path.Combine(folderPath, currentName + ".png");
-                // Loop continues to re-check if the custom entered name ALSO exists
-            }
-            else if (option == 0) // Overwrite
-            {
-                break;
-            }
-        }
-
-        string finalFileName = currentName + ".png";
+        // Save PNG bytes to chosen file path
         byte[] bytes = targetTexture.EncodeToPNG();
-        File.WriteAllBytes(fullPath, bytes);
+        File.WriteAllBytes(savePath, bytes);
 
         AssetDatabase.Refresh();
 
-        string relativePath = "Assets/Resources/Rooms/" + finalFileName;
+        // Convert full system path to an Assets-relative path for the importer
+        string relativePath = savePath.Substring(savePath.IndexOf("Assets"));
         TextureImporter importer = AssetImporter.GetAtPath(relativePath) as TextureImporter;
+
         if (importer != null)
         {
             importer.textureType = TextureImporterType.Sprite;
@@ -489,74 +546,10 @@ public class DrawingBoardWindow : EditorWindow
             importer.SaveAndReimport();
         }
 
+        // Update fileName field with the newly saved name
+        fileName = Path.GetFileNameWithoutExtension(savePath);
+
+        RefreshResourceList();
         Debug.Log($"<color=green>Saved Room Texture to:</color> {relativePath}");
-    }
-}
-
-// Dialog window for asking the user to type a new file name
-public class RenameFileDialog : EditorWindow
-{
-    private string inputName;
-    private System.Action<string> onConfirm;
-
-    public static void ShowWindow(string currentName, System.Action<string> onConfirmAction)
-    {
-        RenameFileDialog window = CreateInstance<RenameFileDialog>();
-        window.titleContent = new GUIContent("Rename Room File");
-        window.inputName = currentName + "_Copy";
-        window.onConfirm = onConfirmAction;
-
-        Vector2 windowSize = new Vector2(350, 110);
-        window.minSize = windowSize;
-        window.maxSize = windowSize;
-
-        // Center relative to the focused EditorWindow or main screen
-        Rect positionRect = new Rect(Vector2.zero, windowSize);
-        if (EditorWindow.focusedWindow != null)
-        {
-            Rect mainPos = EditorWindow.focusedWindow.position;
-            positionRect.x = mainPos.x + (mainPos.width - windowSize.x) * 0.5f;
-            positionRect.y = mainPos.y + (mainPos.height - windowSize.y) * 0.5f;
-        }
-        else
-        {
-            Resolution res = Screen.currentResolution;
-            positionRect.x = (res.width - windowSize.x) * 0.5f;
-            positionRect.y = (res.height - windowSize.y) * 0.5f;
-        }
-
-        window.position = positionRect;
-        window.ShowModalUtility();
-    }
-
-    private void OnGUI()
-    {
-        EditorGUILayout.Space(10);
-        EditorGUILayout.LabelField("Enter a new file name for your room map:", EditorStyles.boldLabel);
-        EditorGUILayout.Space(5);
-
-        GUI.SetNextControlName("RenameField");
-        inputName = EditorGUILayout.TextField("New Name", inputName);
-        EditorGUI.FocusTextInControl("RenameField");
-
-        EditorGUILayout.Space(15);
-        EditorGUILayout.BeginHorizontal();
-
-        if (GUILayout.Button("Save with New Name", GUILayout.Height(25)))
-        {
-            if (!string.IsNullOrWhiteSpace(inputName))
-            {
-                onConfirm?.Invoke(inputName);
-                Close();
-            }
-        }
-
-        if (GUILayout.Button("Cancel", GUILayout.Height(25)))
-        {
-            onConfirm?.Invoke(null);
-            Close();
-        }
-
-        EditorGUILayout.EndHorizontal();
     }
 }
