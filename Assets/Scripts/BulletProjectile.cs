@@ -17,20 +17,22 @@ public class BulletProjectile : MonoBehaviour
 
     private bool _once;
 
+    private void OnEnable()
+    {
+        GameManager.Instance.RoomChangeEvent += Destroy;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.Instance.RoomChangeEvent -= Destroy;
+    }
+
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
         _bc = GetComponent<BoxCollider2D>();
         _anim = GetComponent<Animator>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
-    }
-
-    private void Start()
-    {
-        if (LevelGenerator2D.Instance != null)
-        {
-            transform.SetParent(LevelGenerator2D.Instance.BulletParent);
-        }
     }
 
     // Changes bullet params using ScriptableObject data.

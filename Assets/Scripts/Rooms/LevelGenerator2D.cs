@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class LevelGenerator2D : MonoBehaviour
 {
-    public static LevelGenerator2D Instance { get; private set; }
     [Header("Generator Data")]
     [SerializeField] private TilePalette _palette;
     [SerializeField] private float _tileSize = 1f;
@@ -10,25 +9,10 @@ public class LevelGenerator2D : MonoBehaviour
     [Header("Runtime Spawn Targets")]
     [SerializeField] private Transform _roomParent;
     [SerializeField] private Transform _playerTransform;
-    [SerializeField] private Transform _bulletParent;
-    [SerializeField] private Transform _particleParent;
-    public Transform BulletParent => _bulletParent;
-    public Transform ParticleParent => _particleParent;
-
     private Grid2D _grid;
 
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else if (Instance != this)
-        {
-            Destroy(gameObject);
-        }
-
         _grid = FindFirstObjectByType<Grid2D>();
 
         if (_playerTransform == null)
@@ -154,6 +138,8 @@ public class LevelGenerator2D : MonoBehaviour
         {
             Debug.LogError("No room textures found in Resources/Rooms");
         }
+
+        GameManager.Instance.InvokeRoomChangeEvent();
     }
 
     public void ClearLevel()
@@ -170,22 +156,6 @@ public class LevelGenerator2D : MonoBehaviour
                 Destroy(container.GetChild(i).gameObject);
             else
                 DestroyImmediate(container.GetChild(i).gameObject);
-        }
-
-        for (int i = _bulletParent.childCount - 1; i >= 0; i--)
-        {
-            if (Application.isPlaying)
-                Destroy(_bulletParent.GetChild(i).gameObject);
-            else
-                DestroyImmediate(_bulletParent.GetChild(i).gameObject);
-        }
-
-        for (int i = _particleParent.childCount - 1; i >= 0; i--)
-        {
-            if (Application.isPlaying)
-                Destroy(_particleParent.GetChild(i).gameObject);
-            else
-                DestroyImmediate(_particleParent.GetChild(i).gameObject);
         }
     }
 

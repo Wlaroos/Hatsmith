@@ -2,11 +2,18 @@ using UnityEngine;
 
 public class SetParticleParent : MonoBehaviour
 {
-    private void Start()
+    private void OnEnable()
     {
-        if (LevelGenerator2D.Instance != null)
-        {
-            transform.SetParent(LevelGenerator2D.Instance.ParticleParent);
-        }
+        GameManager.Instance.RoomChangeEvent += OnRoomChange;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.Instance.RoomChangeEvent -= OnRoomChange;
+    }
+
+    private void OnRoomChange()
+    {
+        Destroy(gameObject);
     }
 }

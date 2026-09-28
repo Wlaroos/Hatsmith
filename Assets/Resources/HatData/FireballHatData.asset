@@ -14,32 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HatData
   hatName: Fireball Hat
   hatSprite: {fileID: 1496784655817119623, guid: 6e822a4fd3f9c4046b8989f899111496, type: 3}
-  stackHeightOffset: 0.6
+  stackHeightOffset: 0.5
   rules:
-  - rid: 4162375646634311759
   - rid: 4162375646634311762
   references:
     version: 2
     RefIds:
-    - rid: 4162375646634311759
-      type: {class: HatEffectRule, ns: , asm: Assembly-CSharp}
-      data:
-        trigger:
-          rid: 4162375646634311760
-        effect:
-          rid: 4162375646634311761
-    - rid: 4162375646634311760
-      type: {class: OnEquipTrigger, ns: , asm: Assembly-CSharp}
-      data: 
-    - rid: 4162375646634311761
-      type: {class: OrbitalEffect, ns: , asm: Assembly-CSharp}
-      data:
-        orbitalPrefab: {fileID: 104384480508462922, guid: cd52ca37977494c4dbb702de24edc328, type: 3}
-        radius: 2
-        speed: 360
-        numberOfOrbitals: 5
-        maxOrbitalsPerRing: 5
-        isAdditive: 0
     - rid: 4162375646634311762
       type: {class: HatEffectRule, ns: , asm: Assembly-CSharp}
       data:

@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     public event Action<GameObject> PlayerShootEvent = delegate { };
     public event Action<GameObject> EnemyHitEvent = delegate { };
     public event Action<GameObject> EnemyKilledEvent = delegate { };
+    public event Action RoomChangeEvent = delegate { };
+    public event Action<GameObject> IngredientSpawnedEvent = delegate { };
     private LevelGenerator2D roomGenerator;
 
     [Header("Item Drop Settings")]
@@ -36,7 +38,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        roomGenerator = LevelGenerator2D.Instance;
+        roomGenerator = FindFirstObjectByType<LevelGenerator2D>();
 
         roomGenerator.StartRoomLoad();
     }
@@ -97,6 +99,16 @@ public class GameManager : MonoBehaviour
         SpawnIngredient(enemy.transform);
     }
 
+    public void InvokeIngredientSpawnedEvent(GameObject ingredient)
+    {
+        IngredientSpawnedEvent.Invoke(ingredient);
+    }
+
+    public void InvokeRoomChangeEvent()
+    {
+        RoomChangeEvent.Invoke();
+    }
+
     public void AddIngredientCount(int ingredientId, int count)
     {
         if (ingredientId < 0 || ingredientId >= _ingredientCounts.Length)
@@ -124,5 +136,7 @@ public class GameManager : MonoBehaviour
             
             pickup.SetIngredientType(randomType);
         }
+
+        InvokeIngredientSpawnedEvent(ingredientObj);
     }
 }
