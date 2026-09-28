@@ -166,3 +166,5 @@ MonoBehaviour:
   - {fileID: -1183206106, guid: afcc114ef8a2a1b43b886700c02079dc, type: 3}
   - {fileID: 487629863, guid: afcc114ef8a2a1b43b886700c02079dc, type: 3}
   - {fileID: 61731103, guid: afcc114ef8a2a1b43b886700c02079dc, type: 3}
+  _frameRate: 0.2
+  _pickupEffectPrefab: {fileID: 6009536360408007042, guid: d66c3173383c015449777b348df89901, type: 3}

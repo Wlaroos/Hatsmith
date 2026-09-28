@@ -17,7 +17,7 @@ public class IngredientPickup : MonoBehaviour
     [SerializeField] private Sprite[] _frame01;
     [SerializeField] private Sprite[] _frame02;
     [SerializeField] private float _frameRate = 0.2f;
-
+    [SerializeField] private GameObject _pickupEffectPrefab;
     private SpriteRenderer _sr;
     private bool _isFrame01 = true;
 
@@ -65,7 +65,41 @@ public class IngredientPickup : MonoBehaviour
         if (collision.TryGetComponent<PlayerStats>(out _))
         {
             GameManager.Instance.AddIngredientCount((int)_ingredientType, 1);
+
+            if (_pickupEffectPrefab != null)
+            {
+                GameObject effect = Instantiate(_pickupEffectPrefab, transform.position, Quaternion.identity);
+                ParticleSystem particleSystem = effect.GetComponentInChildren<ParticleSystem>();
+
+                if (particleSystem != null)
+                {
+                    ParticleSystem.MainModule main = particleSystem.main;
+                    main.startColor = IngredientTypeToColor(_ingredientType);
+                }
+            }
+
             Destroy(gameObject);
+        }
+    }
+
+    private Color IngredientTypeToColor(IngredientType type)
+    {
+        switch (type)
+        {
+            case IngredientType.Purple:
+                return new Color32(46, 49, 146, 255);
+            case IngredientType.Green:
+                return new Color32(10, 51, 19, 255);
+            case IngredientType.Red:
+                return new Color32(76, 5, 7, 255);
+            case IngredientType.Orange:
+                return new Color32(211, 94, 32, 255);
+            case IngredientType.Blue:
+                return new Color32(0, 114, 188, 255);
+            case IngredientType.Pink:
+                return new Color32(146, 46, 132 , 255);
+            default:
+                return Color.white;
         }
     }
 }
