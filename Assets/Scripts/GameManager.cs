@@ -107,13 +107,20 @@ public class GameManager : MonoBehaviour
 
     private void SpawnIngredient(Transform parent)
     {
-        if (_ingredientPrefab != null && UnityEngine.Random.value <= _ingredientDropChance)
+        if (_ingredientPrefab == null || UnityEngine.Random.value > _ingredientDropChance) 
         {
-            GameObject ingredient = Instantiate(_ingredientPrefab, parent.position, Quaternion.identity);
-            int id = UnityEngine.Random.Range(0, 6);
-            ingredient.GetComponent<IngredientPickup>().SetIngredientType((IngredientPickup.IngredientType)id);
+            return;
+        }
 
-            Debug.Log("Spawned ingredient: " + id);
+        GameObject ingredientObj = Instantiate(_ingredientPrefab, parent.position, Quaternion.identity);
+
+        if (ingredientObj.TryGetComponent<IngredientPickup>(out var pickup))
+        {
+            // Pick a random enum value dynamically based on enum length
+            Array values = Enum.GetValues(typeof(IngredientPickup.IngredientType));
+            IngredientPickup.IngredientType randomType = (IngredientPickup.IngredientType)values.GetValue(UnityEngine.Random.Range(0, values.Length));
+            
+            pickup.SetIngredientType(randomType);
         }
     }
 }

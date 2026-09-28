@@ -1,6 +1,5 @@
-using UnityEngine;
-using System.Collections.Generic;
 using System.Collections;
+using UnityEngine;
 
 public class IngredientPickup : MonoBehaviour
 {
@@ -17,9 +16,10 @@ public class IngredientPickup : MonoBehaviour
     [SerializeField] private IngredientType _ingredientType;
     [SerializeField] private Sprite[] _frame01;
     [SerializeField] private Sprite[] _frame02;
+    [SerializeField] private float _frameRate = 0.2f;
+
     private SpriteRenderer _sr;
     private bool _isFrame01 = true;
-    private int _repeatCount = 1000;
 
     private void Awake()
     {
@@ -34,47 +34,35 @@ public class IngredientPickup : MonoBehaviour
     public void SetIngredientType(IngredientType type)
     {
         _ingredientType = type;
+        UpdateSprite();
     }
 
-    private void SetSprite(bool frame)
+    private void UpdateSprite()
     {
-        switch (_ingredientType)
+        int index = (int)_ingredientType;
+
+        if (_frame01 != null && index < _frame01.Length && _frame02 != null && index < _frame02.Length)
         {
-            case IngredientType.Purple:
-                _sr.sprite = frame ? _frame01[(int)IngredientType.Purple] : _frame02[(int)IngredientType.Purple];
-                break;
-            case IngredientType.Green:
-                _sr.sprite = frame ? _frame01[(int)IngredientType.Green] : _frame02[(int)IngredientType.Green];
-                break;
-            case IngredientType.Red:
-                _sr.sprite = frame ? _frame01[(int)IngredientType.Red] : _frame02[(int)IngredientType.Red];
-                break;
-            case IngredientType.Orange:
-                _sr.sprite = frame ?_frame01[(int)IngredientType.Orange] :_frame02[(int)IngredientType.Orange];
-                break;
-            case IngredientType.Blue:
-                _sr.sprite = frame ? _frame01[(int)IngredientType.Blue] : _frame02[(int)IngredientType.Blue];
-                break;
-            case IngredientType.Pink:
-                _sr.sprite = frame ?_frame01[(int)IngredientType.Pink] :_frame02[(int)IngredientType.Pink];
-                break;
+            // Set the sprite based on the current frame and ingredient type
+            _sr.sprite = _isFrame01 ? _frame01[index] : _frame02[index];
         }
     }
 
     private IEnumerator AnimateSprite()
     {
-        while (_repeatCount > 0)
+        WaitForSeconds wait = new WaitForSeconds(_frameRate);
+
+        while (true)
         {
-            SetSprite(_isFrame01);
             _isFrame01 = !_isFrame01;
-            yield return new WaitForSeconds(0.2f);
-            _repeatCount--;
+            UpdateSprite();
+            yield return wait;
         }
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.GetComponent<PlayerStats>() != null)
+        if (collision.TryGetComponent<PlayerStats>(out _))
         {
             GameManager.Instance.AddIngredientCount((int)_ingredientType, 1);
             Destroy(gameObject);
