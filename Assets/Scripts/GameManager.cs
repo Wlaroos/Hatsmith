@@ -32,9 +32,11 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
 
-        // Find the LevelGenerator2D in the scene even after scene reloads
-        roomGenerator = FindFirstObjectByType<LevelGenerator2D>();
+    private void Start()
+    {
+        roomGenerator = LevelGenerator2D.Instance;
 
         roomGenerator.StartRoomLoad();
     }

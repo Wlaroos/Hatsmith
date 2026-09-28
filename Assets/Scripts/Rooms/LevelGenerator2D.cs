@@ -2,24 +2,39 @@ using UnityEngine;
 
 public class LevelGenerator2D : MonoBehaviour
 {
+    public static LevelGenerator2D Instance { get; private set; }
     [Header("Generator Data")]
-    [SerializeField] private TilePalette palette;
-    [SerializeField] private float tileSize = 1f;
+    [SerializeField] private TilePalette _palette;
+    [SerializeField] private float _tileSize = 1f;
 
     [Header("Runtime Spawn Targets")]
-    [SerializeField] private Transform roomParent;
-    [SerializeField] private Transform playerTransform;
+    [SerializeField] private Transform _roomParent;
+    [SerializeField] private Transform _playerTransform;
+    [SerializeField] private Transform _bulletParent;
+    [SerializeField] private Transform _particleParent;
+    public Transform BulletParent => _bulletParent;
+    public Transform ParticleParent => _particleParent;
 
     private Grid2D _grid;
 
     private void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else if (Instance != this)
+        {
+            Destroy(gameObject);
+        }
+
         _grid = FindFirstObjectByType<Grid2D>();
 
-        if (playerTransform == null)
+        if (_playerTransform == null)
         {
             PlayerMovement player = FindAnyObjectByType<PlayerMovement>();
-            if (player != null) playerTransform = player.transform;
+            if (player != null) _playerTransform = player.transform;
         }
     }
 
@@ -27,26 +42,26 @@ public class LevelGenerator2D : MonoBehaviour
     {
         ClearLevel();
 
-        if (mapTexture == null || palette == null)
+        if (mapTexture == null || _palette == null)
         {
             Debug.LogError("Missing Texture2D or TilePalette reference!");
             return;
         }
 
-        Transform container = roomParent != null ? roomParent : transform;
+        Transform container = _roomParent != null ? _roomParent : transform;
 
-        if (playerTransform == null)
+        if (_playerTransform == null)
         {
             PlayerMovement player = FindAnyObjectByType<PlayerMovement>();
-            if (player != null) playerTransform = player.transform;
+            if (player != null) _playerTransform = player.transform;
         }
 
-        float roomWidth = mapTexture.width * tileSize;
-        float roomHeight = mapTexture.height * tileSize;
+        float roomWidth = mapTexture.width * _tileSize;
+        float roomHeight = mapTexture.height * _tileSize;
 
         Vector3 centerOffset = new Vector3(
-            (roomWidth / 2f) - (tileSize / 2f),
-            (roomHeight / 2f) - (tileSize / 2f),
+            (roomWidth / 2f) - (_tileSize / 2f),
+            (roomHeight / 2f) - (_tileSize / 2f),
             0f
         );
 
@@ -58,11 +73,11 @@ public class LevelGenerator2D : MonoBehaviour
 
                 if (pixelColor.a == 0) continue;
 
-                foreach (TileMapping mapping in palette.mappings)
+                foreach (TileMapping mapping in _palette.mappings)
                 {
                     if (ColorEquals(mapping.Color, pixelColor))
                     {
-                        Vector3 rawPosition = new Vector3(x * tileSize, y * tileSize, 0f);
+                        Vector3 rawPosition = new Vector3(x * _tileSize, y * _tileSize, 0f);
                         Vector3 targetPosition = container.position + rawPosition - centerOffset;
 
                         ProcessTileMapping(mapping, targetPosition, container);
@@ -110,15 +125,15 @@ public class LevelGenerator2D : MonoBehaviour
 
     private void TeleportPlayer(Vector3 spawnPosition)
     {
-        if (playerTransform != null)
+        if (_playerTransform != null)
         {
-            Rigidbody2D playerRb = playerTransform.GetComponent<Rigidbody2D>();
+            Rigidbody2D playerRb = _playerTransform.GetComponent<Rigidbody2D>();
             if (playerRb != null)
             {
                 playerRb.linearVelocity = Vector2.zero;
             }
 
-            playerTransform.position = spawnPosition;
+            _playerTransform.position = spawnPosition;
             Debug.Log($"<color=cyan>Player teleported to spawn tile:</color> {spawnPosition}");
         }
         else
@@ -148,13 +163,29 @@ public class LevelGenerator2D : MonoBehaviour
             EnemyManager.Instance.ClearAllActiveEnemies();
         }
 
-        Transform container = roomParent != null ? roomParent : transform;
+        Transform container = _roomParent != null ? _roomParent : transform;
         for (int i = container.childCount - 1; i >= 0; i--)
         {
             if (Application.isPlaying)
                 Destroy(container.GetChild(i).gameObject);
             else
                 DestroyImmediate(container.GetChild(i).gameObject);
+        }
+
+        for (int i = _bulletParent.childCount - 1; i >= 0; i--)
+        {
+            if (Application.isPlaying)
+                Destroy(_bulletParent.GetChild(i).gameObject);
+            else
+                DestroyImmediate(_bulletParent.GetChild(i).gameObject);
+        }
+
+        for (int i = _particleParent.childCount - 1; i >= 0; i--)
+        {
+            if (Application.isPlaying)
+                Destroy(_particleParent.GetChild(i).gameObject);
+            else
+                DestroyImmediate(_particleParent.GetChild(i).gameObject);
         }
     }
 

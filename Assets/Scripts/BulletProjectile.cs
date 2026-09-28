@@ -25,6 +25,14 @@ public class BulletProjectile : MonoBehaviour
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
+    private void Start()
+    {
+        if (LevelGenerator2D.Instance != null)
+        {
+            transform.SetParent(LevelGenerator2D.Instance.BulletParent);
+        }
+    }
+
     // Changes bullet params using ScriptableObject data.
     public void BulletSetup(BulletData data, Vector3 shootDir, float angle, float playerSizeMultiplier = 1f, int playerDamageBonus = 0)
     {
