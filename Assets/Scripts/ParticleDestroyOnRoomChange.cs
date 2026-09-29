@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SetParticleParent : MonoBehaviour
+public class ParticleDestroyOnRoomChange : MonoBehaviour
 {
     private void OnEnable()
     {

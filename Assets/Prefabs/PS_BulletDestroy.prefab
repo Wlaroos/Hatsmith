@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3704181755295154281}
   - component: {fileID: 2960586314680319200}
   - component: {fileID: 3576390779750228130}
-  - component: {fileID: -5566866709396858678}
+  - component: {fileID: 6336468760321970436}
   m_Layer: 0
   m_Name: PS_BulletDestroy
   m_TagString: Untagged
@@ -4898,7 +4898,7 @@ ParticleSystemRenderer:
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
---- !u!114 &-5566866709396858678
+--- !u!114 &6336468760321970436
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

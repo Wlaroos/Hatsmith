@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1515651848616404212}
   - component: {fileID: 5599186064739102515}
   - component: {fileID: 3793496360436347123}
-  - component: {fileID: 5193285795036437453}
+  - component: {fileID: 8102188093444113567}
   m_Layer: 0
   m_Name: PS_BloodDirectional
   m_TagString: Untagged
@@ -4898,7 +4898,7 @@ ParticleSystemRenderer:
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
---- !u!114 &5193285795036437453
+--- !u!114 &8102188093444113567
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

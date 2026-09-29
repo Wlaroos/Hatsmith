@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3704181755295154281}
   - component: {fileID: 2960586314680319200}
   - component: {fileID: 3576390779750228130}
-  - component: {fileID: -5293262352407424093}
+  - component: {fileID: 4075121691503683425}
   m_Layer: 0
   m_Name: PS_DeathBlood
   m_TagString: Untagged
@@ -4898,7 +4898,7 @@ ParticleSystemRenderer:
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
---- !u!114 &-5293262352407424093
+--- !u!114 &4075121691503683425
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4909,4 +4909,4 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ffac9e55979f4e42b800b5d63167725, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SetParticleParent
+  m_EditorClassIdentifier: Assembly-CSharp::ParticleDestroyOnRoomChange

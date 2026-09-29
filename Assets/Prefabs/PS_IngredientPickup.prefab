@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3704181755295154281}
   - component: {fileID: 2960586314680319200}
   - component: {fileID: 3576390779750228130}
-  - component: {fileID: 5897429671844086919}
+  - component: {fileID: 590912180408287644}
   m_Layer: 0
   m_Name: PS_IngredientPickup
   m_TagString: Untagged
@@ -4898,7 +4898,7 @@ ParticleSystemRenderer:
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
---- !u!114 &5897429671844086919
+--- !u!114 &590912180408287644
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
