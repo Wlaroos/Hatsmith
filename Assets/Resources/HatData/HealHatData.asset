@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: HealHatData
   m_EditorClassIdentifier: Assembly-CSharp::HatData
   hatName: Angel Hat
+  hatDescription: On kill, heal 1 HP (I know this is OP right now)
   hatSprite: {fileID: -4714329226975970322, guid: 6e822a4fd3f9c4046b8989f899111496, type: 3}
   stackHeightOffset: 0.5
   rules:

@@ -6,6 +6,7 @@ using UnityEngine;
 public class HatData : ScriptableObject
 {
     public string hatName;
+    public string hatDescription;
     public Sprite hatSprite;
     public float stackHeightOffset = 0.3f; // Height added to the stack when equipped
 

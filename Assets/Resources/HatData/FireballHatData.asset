@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: FireballHatData
   m_EditorClassIdentifier: Assembly-CSharp::HatData
   hatName: Fireball Hat
+  hatDescription: Every second, add a bullet orbital up to a max of 15
   hatSprite: {fileID: 1496784655817119623, guid: 6e822a4fd3f9c4046b8989f899111496, type: 3}
   stackHeightOffset: 0.5
   rules:

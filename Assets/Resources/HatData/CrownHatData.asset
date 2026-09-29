@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: CrownHatData
   m_EditorClassIdentifier: Assembly-CSharp::HatData
   hatName: Crown Hat
+  hatDescription: Upon killing an enemy, spawn 3 bullets from their body
   hatSprite: {fileID: 6722296467876901231, guid: 6e822a4fd3f9c4046b8989f899111496, type: 3}
   stackHeightOffset: 0.5
   rules:

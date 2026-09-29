@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6373908385010079832}
   - component: {fileID: 4355612757443509982}
   m_Layer: 8
-  m_Name: AnimatedWall
+  m_Name: PF_AnimatedWall
   m_TagString: BulletBounds
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
