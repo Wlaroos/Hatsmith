@@ -4,6 +4,7 @@ using UnityEngine;
 public class OrbitalEffect : HatEffect
 {
     public GameObject orbitalPrefab;
+    public BulletData bulletData;
     public float radius = 1.5f;
     public float speed = 180f;
     public int numberOfOrbitals = 3;
@@ -72,6 +73,12 @@ public class OrbitalTracker : MonoBehaviour
                 }
 
                 GameObject orbitalGO = Instantiate(prefab, transform);
+
+                if (orbitalGO.TryGetComponent<BulletProjectile>(out var bulletScript))
+                {
+                    bulletScript.BulletSetup(effect.bulletData, Vector3.zero, 0f);
+                }
+
                 ring.Orbitals.Add(orbitalGO);
             }
 

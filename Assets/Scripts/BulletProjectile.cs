@@ -17,7 +17,7 @@ public class BulletProjectile : MonoBehaviour
 
     private bool _once;
 
-    private void OnEnable()
+    private void Start()
     {
         GameManager.Instance.RoomChangeEvent += Destroy;
     }

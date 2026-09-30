@@ -49,6 +49,7 @@ public class IngredientPickup : MonoBehaviour
         {
             // Add item to manager inventory
             CraftingManager.Instance.AddIngredient(_data, 1);
+            GameManager.Instance.InvokeIngredientPickedUpEvent();
 
             // Spawn particle effect using SO color and prefab
             if (_data.pickupEffectPrefab != null)

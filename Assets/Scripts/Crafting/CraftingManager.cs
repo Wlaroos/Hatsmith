@@ -5,8 +5,11 @@ public class CraftingManager : MonoBehaviour
 {
     public static CraftingManager Instance { get; private set; }
 
-    [Header("Available Ingredients")]
-    [SerializeField] private List<IngredientData> _availableIngredients = new List<IngredientData>();
+    [Header("Ingredient Database")]
+    [SerializeField] private IngredientDatabase _ingredientDatabase;
+
+    [Header("Hat Pickup")]
+    [SerializeField] private GameObject _hatPickupPrefab;
 
     [Header("Drop Settings")]
     [SerializeField] private GameObject _ingredientPrefab;
@@ -50,11 +53,11 @@ public class CraftingManager : MonoBehaviour
 
     public void SpawnIngredient(Transform parent)
     {
-        if (_ingredientPrefab == null || _availableIngredients.Count == 0) return;
+        if (_ingredientPrefab == null || _ingredientDatabase.count == 0) return;
         if (Random.value > _ingredientDropChance) return;
 
         // Pick a random ingredient SO from the list
-        IngredientData randomData = _availableIngredients[Random.Range(0, _availableIngredients.Count)];
+        IngredientData randomData = _ingredientDatabase.ingredientDataList[Random.Range(0, _ingredientDatabase.count)];
 
         GameObject obj = Instantiate(_ingredientPrefab, parent.position, Quaternion.identity);
 
@@ -99,6 +102,12 @@ public class CraftingManager : MonoBehaviour
         }
 
         Debug.Log($"Successfully crafted: {recipe.resultHat.hatName}");
+
+        GameObject hatPickupPrefab = Instantiate(_hatPickupPrefab, FindFirstObjectByType<CraftingTable>().transform);
+
+        hatPickupPrefab.TryGetComponent(out HatPickup hatPickup);
+        hatPickup.SetHatData(recipe.resultHat);
+
         return recipe.resultHat;
     }
 }

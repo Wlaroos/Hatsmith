@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class LevelGenerator2D : MonoBehaviour
 {
+    public static LevelGenerator2D Instance { get; private set; }
+
     [Header("Generator Data")]
     [SerializeField] private TilePalette _palette;
     [SerializeField] private float _tileSize = 1f;
@@ -13,6 +15,16 @@ public class LevelGenerator2D : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else if (Instance != this)
+        {
+            Destroy(gameObject);
+        }
+
         _grid = FindFirstObjectByType<Grid2D>();
 
         if (_playerTransform == null)

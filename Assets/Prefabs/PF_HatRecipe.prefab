@@ -1036,7 +1036,7 @@ MonoBehaviour:
   _hatDescription: {fileID: 4961517516398005910}
   _craftButton: {fileID: 831633081197077874}
   _craftableColor: {r: 0, g: 1, b: 0, a: 1}
-  _uncraftableColor: {r: 0.19999999, g: 0.19999999, b: 0.19999999, a: 1}
+  _uncraftableColor: {r: 0.4792453, g: 0.4792453, b: 0.4792453, a: 1}
 --- !u!1 &5809923281481351567
 GameObject:
   m_ObjectHideFlags: 0

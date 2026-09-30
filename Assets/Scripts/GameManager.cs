@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public event Action<GameObject> EnemyKilledEvent = delegate { };
     public event Action RoomChangeEvent = delegate { };
     public event Action<IngredientData> IngredientSpawnedEvent = delegate { };
+    public event Action IngredientPickedUpEvent = delegate { };
     private LevelGenerator2D roomGenerator;
 
     private void Awake()
@@ -47,6 +48,7 @@ public class GameManager : MonoBehaviour
         {
             roomGenerator.ClearLevel();
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            roomGenerator = FindFirstObjectByType<LevelGenerator2D>();
             roomGenerator.StartRoomLoad();
         }
 
@@ -95,6 +97,11 @@ public class GameManager : MonoBehaviour
     public void InvokeIngredientSpawnedEvent(IngredientData ingredient)
     {
         IngredientSpawnedEvent.Invoke(ingredient);
+    }
+
+    public void InvokeIngredientPickedUpEvent()
+    {
+        IngredientPickedUpEvent.Invoke();
     }
 
     public void InvokeRoomChangeEvent()

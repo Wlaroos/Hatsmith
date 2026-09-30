@@ -15,6 +15,9 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private Color _flashHitColor = new Color(1f, 0f, 0f, 0.4f);
     [SerializeField] private Color _normalColor = Color.white;
 
+    [Header("Press E")]
+    [SerializeField] GameObject _pressE;
+
     private int _currentHealth;
     public int CurrentHealth => _currentHealth;
     private int _currentRevives;
@@ -115,5 +118,10 @@ public class PlayerHealth : MonoBehaviour
         _anim.SetTrigger("Down");
 
         Debug.Log("Player downed");
+    }
+
+    public void ShowE(bool show)
+    {
+        _pressE.SetActive(show);
     }
 }

@@ -94,4 +94,16 @@ public class HatPickup : MonoBehaviour
             }
         }
     }
+
+    public void SetHatData(HatData data)
+    {
+        _hatData = data;
+
+        if (_sr != null && _hatData != null)
+        {
+            _sr.sprite = _hatData.hatSprite;
+            _col.size = _sr.sprite.bounds.size;
+            _col.offset = _sr.sprite.bounds.center;
+        }
+    }
 }
