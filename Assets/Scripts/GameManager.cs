@@ -13,7 +13,9 @@ public class GameManager : MonoBehaviour
     public event Action<GameObject> EnemyHitEvent = delegate { };
     public event Action<GameObject> EnemyKilledEvent = delegate { };
     public event Action RoomChangeEvent = delegate { };
+    public event Action RoomClearEvent = delegate { };
     public event Action<IngredientData> IngredientSpawnedEvent = delegate { };
+    public event Action<HatData> HatCraftedEvent = delegate { };
     public event Action IngredientPickedUpEvent = delegate { };
     private LevelGenerator2D roomGenerator;
 
@@ -107,5 +109,15 @@ public class GameManager : MonoBehaviour
     public void InvokeRoomChangeEvent()
     {
         RoomChangeEvent.Invoke();
+    }
+
+    public void InvokeRoomClearEvent()
+    {
+        RoomClearEvent.Invoke();
+    }
+
+    public void InvokeHatCraftedEvent(HatData hatData)
+    {
+        HatCraftedEvent.Invoke(hatData);
     }
 }

@@ -200,7 +200,7 @@ GameObject:
   - component: {fileID: 189181801}
   - component: {fileID: 189181800}
   m_Layer: 5
-  m_Name: Image (3)
+  m_Name: IngredientImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -477,7 +477,7 @@ MonoBehaviour:
   _ingredientDatabase: {fileID: 11400000, guid: d8ba57d41736b1e4d8caebfb506a46cc, type: 2}
   _hatPickupPrefab: {fileID: 2157295402347023227, guid: b0bcaa9c8162d544aba7eaacaec9216a, type: 3}
   _ingredientPrefab: {fileID: 3776704541901684473, guid: e7ffb48dfdacc2b4b994fdc3e188e34f, type: 3}
-  _ingredientDropChance: 1
+  _ingredientDropChance: 0.5
   _animationFrameRate: 0.2
 --- !u!1001 &441938680
 PrefabInstance:
@@ -560,7 +560,7 @@ GameObject:
   - component: {fileID: 492133604}
   - component: {fileID: 492133603}
   m_Layer: 5
-  m_Name: Image (5)
+  m_Name: IngredientImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -726,12 +726,12 @@ Camera:
     x: 0
     y: 0
     width: 1
-    height: 0.99959075
+    height: 1
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 12
+  orthographic size: 12.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -788,8 +788,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.RenderPipelines.Universal.2D.Runtime::UnityEngine.Rendering.Universal.PixelPerfectCamera
   m_ComponentVersion: 1
   m_AssetsPPU: 16
-  m_RefResolutionX: 384
-  m_RefResolutionY: 384
+  m_RefResolutionX: 400
+  m_RefResolutionY: 400
   m_CropFrame: 4
   m_GridSnapping: 2
   m_FilterMode: 1
@@ -890,7 +890,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ComponentVersion: 2
+  m_ComponentVersion: 3
   m_LightType: 4
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
@@ -1024,7 +1024,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: -1223152438, guid: 1a87e563dcc956349a7a263d0a7946f7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1183,7 +1183,7 @@ GameObject:
   - component: {fileID: 759568450}
   - component: {fileID: 759568449}
   m_Layer: 5
-  m_Name: Image (4)
+  m_Name: IngredientImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1582,7 +1582,7 @@ GameObject:
   - component: {fileID: 975974022}
   - component: {fileID: 975974021}
   m_Layer: 5
-  m_Name: Image
+  m_Name: IngredientImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1657,7 +1657,7 @@ GameObject:
   - component: {fileID: 1011043934}
   - component: {fileID: 1011043933}
   m_Layer: 5
-  m_Name: Text (TMP) (3)
+  m_Name: IngredientCount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1680,7 +1680,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 10, y: 10}
+  m_SizeDelta: {x: 15, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1011043933
 MonoBehaviour:
@@ -1794,7 +1794,7 @@ GameObject:
   - component: {fileID: 1081560668}
   - component: {fileID: 1081560667}
   m_Layer: 5
-  m_Name: Text (TMP) (4)
+  m_Name: IngredientCount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1817,7 +1817,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 10, y: 10}
+  m_SizeDelta: {x: 15, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1081560667
 MonoBehaviour:
@@ -1931,7 +1931,7 @@ GameObject:
   - component: {fileID: 1244982883}
   - component: {fileID: 1244982882}
   m_Layer: 5
-  m_Name: Text (TMP) (1)
+  m_Name: IngredientCount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1954,7 +1954,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 10, y: 10}
+  m_SizeDelta: {x: 15, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1244982882
 MonoBehaviour:
@@ -2159,7 +2159,7 @@ GameObject:
   - component: {fileID: 1280850224}
   - component: {fileID: 1280850223}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: IngredientCount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2182,7 +2182,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 10, y: 10}
+  m_SizeDelta: {x: 15, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1280850223
 MonoBehaviour:
@@ -2740,7 +2740,7 @@ GameObject:
   - component: {fileID: 1814250540}
   - component: {fileID: 1814250539}
   m_Layer: 5
-  m_Name: Image (2)
+  m_Name: IngredientImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2936,7 +2936,7 @@ GameObject:
   - component: {fileID: 1899576788}
   - component: {fileID: 1899576787}
   m_Layer: 5
-  m_Name: Text (TMP) (2)
+  m_Name: IngredientCount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2959,7 +2959,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 10, y: 10}
+  m_SizeDelta: {x: 15, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1899576787
 MonoBehaviour:
@@ -3073,7 +3073,7 @@ GameObject:
   - component: {fileID: 1911295774}
   - component: {fileID: 1911295773}
   m_Layer: 5
-  m_Name: Text (TMP) (5)
+  m_Name: IngredientCount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3096,7 +3096,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 10, y: 10}
+  m_SizeDelta: {x: 15, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1911295773
 MonoBehaviour:
@@ -3315,7 +3315,7 @@ GameObject:
   - component: {fileID: 1958168034}
   - component: {fileID: 1958168033}
   m_Layer: 5
-  m_Name: Image (1)
+  m_Name: IngredientImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

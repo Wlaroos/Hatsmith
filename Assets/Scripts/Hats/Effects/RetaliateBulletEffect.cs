@@ -22,10 +22,12 @@ public class RetaliateBulletEffect : HatEffect
         // Determine spawn point based on selected enum
         Vector3 spawnPosition = GetSpawnPosition(hat, target);
 
+        float randomOffset = Random.Range(0, 360);
+
         float angleStep = 360f / bulletCount;
         for (int i = 0; i < bulletCount; i++)
         {
-            float angle = i * angleStep;
+            float angle = randomOffset + (i * angleStep);
             Vector3 dir = Quaternion.Euler(0, 0, angle) * Vector3.right;
             
             GameObject bullet = Object.Instantiate(bulletPrefab, spawnPosition, Quaternion.identity);

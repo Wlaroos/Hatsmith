@@ -40,10 +40,12 @@ public class CraftingUI : MonoBehaviour
     private void OnEnable()
     {
         GameManager.Instance.IngredientPickedUpEvent += UpdateInventoryUI;
+        GameManager.Instance.HatCraftedEvent += UpdateInventoryUI;
     }
     private void OnDisable()
     {
         GameManager.Instance.IngredientPickedUpEvent -= UpdateInventoryUI;
+        GameManager.Instance.HatCraftedEvent -= UpdateInventoryUI;
     }
 
     private void Start()
@@ -52,6 +54,16 @@ public class CraftingUI : MonoBehaviour
     }
 
     public void UpdateInventoryUI()
+    {
+        UpdateUIHelper();
+    }
+
+    public void UpdateInventoryUI(HatData hatData)
+    {
+        UpdateUIHelper();
+    }
+
+    private void UpdateUIHelper()
     {
         Transform holderTransform = _invHolder.transform;
 
@@ -73,7 +85,7 @@ public class CraftingUI : MonoBehaviour
             Transform spriteChild = holderTransform.GetChild(spriteChildIndex);
             if (spriteChild.TryGetComponent<Image>(out Image img))
             {
-                img.sprite = ingredient.frames[0]; 
+                img.sprite = ingredient.frames[0];
             }
 
             // Set the Count on the second child
@@ -86,4 +98,5 @@ public class CraftingUI : MonoBehaviour
             }
         }
     }
+
 }

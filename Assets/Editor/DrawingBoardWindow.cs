@@ -15,9 +15,9 @@ public class DrawingBoardWindow : EditorWindow
     private bool showGrid = true;
     private Color gridColor = new Color(1f, 1f, 1f, 0.2f);
 
-    private int textureWidth = 24;
-    private int textureHeight = 24;
-    private float canvasZoom = 15f; 
+    private int textureWidth = 25;
+    private int textureHeight = 25;
+    private float canvasZoom = 12f; 
 
     private string fileName = "RoomMap_01";
     private Vector2 scrollPosition;

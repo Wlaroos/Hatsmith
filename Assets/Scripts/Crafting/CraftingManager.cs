@@ -84,12 +84,12 @@ public class CraftingManager : MonoBehaviour
         return true;
     }
 
-    public HatData CraftHat(RecipeData recipe)
+    public void CraftHat(RecipeData recipe)
     {
         if (!CanCraft(recipe))
         {
             Debug.LogWarning($"[CraftingManager] Insufficient ingredients to craft {recipe.name}");
-            return null;
+            return;
         }
 
         // Subtract ingredients
@@ -103,11 +103,11 @@ public class CraftingManager : MonoBehaviour
 
         Debug.Log($"Successfully crafted: {recipe.resultHat.hatName}");
 
+        GameManager.Instance.InvokeHatCraftedEvent(recipe.resultHat);
+
         GameObject hatPickupPrefab = Instantiate(_hatPickupPrefab, FindFirstObjectByType<CraftingTable>().transform);
 
         hatPickupPrefab.TryGetComponent(out HatPickup hatPickup);
         hatPickup.SetHatData(recipe.resultHat);
-
-        return recipe.resultHat;
     }
 }

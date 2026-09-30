@@ -25,3 +25,7 @@ MonoBehaviour:
     color: {r: 1, g: 0.3679244, b: 0.3679244, a: 1}
     type: 2
     prefab: {fileID: 3016540684676025272, guid: d62c7d5fcbbd3b7488ff8cc28fd5dc4f, type: 3}
+  - tag: Trapdoor
+    color: {r: 0.36862743, g: 1, b: 0.8959226, a: 1}
+    type: 0
+    prefab: {fileID: 2757456079485347563, guid: 639a6c450e624da45b8368e616a111de, type: 3}
