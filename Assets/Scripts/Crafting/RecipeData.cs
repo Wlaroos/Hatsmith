@@ -7,8 +7,8 @@ public class RecipeData : ScriptableObject
     [System.Serializable]
     public struct IngredientRequirement
     {
-        public IngredientData ingredient;
-        public int count;
+        public IngredientData ingredientData;
+        public int amount;
     }
 
     [Header("Recipe Requirements")]

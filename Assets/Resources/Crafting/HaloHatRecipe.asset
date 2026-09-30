@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: HaloHatRecipe
   m_EditorClassIdentifier: Assembly-CSharp::RecipeData
   requiredIngredients:
-  - ingredient: {fileID: 11400000, guid: ca68e88f5a98c1a4f8e8ab702d747712, type: 2}
-    count: 3
+  - ingredientData: {fileID: 11400000, guid: ca68e88f5a98c1a4f8e8ab702d747712, type: 2}
+    amount: 3
   resultHat: {fileID: 11400000, guid: b59baa51644f11f488604c39f49dd5f4, type: 2}

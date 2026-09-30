@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: CrownHatRecipe
   m_EditorClassIdentifier: Assembly-CSharp::RecipeData
   requiredIngredients:
-  - ingredient: {fileID: 11400000, guid: 69421b7388c22064eb65742db8b7e7c3, type: 2}
-    count: 1
-  - ingredient: {fileID: 11400000, guid: ca68e88f5a98c1a4f8e8ab702d747712, type: 2}
-    count: 1
-  - ingredient: {fileID: 11400000, guid: 8e621037e039aa34ea1367d272cd479a, type: 2}
-    count: 1
+  - ingredientData: {fileID: 11400000, guid: 8e621037e039aa34ea1367d272cd479a, type: 2}
+    amount: 1
+  - ingredientData: {fileID: 11400000, guid: ca68e88f5a98c1a4f8e8ab702d747712, type: 2}
+    amount: 1
+  - ingredientData: {fileID: 11400000, guid: 69421b7388c22064eb65742db8b7e7c3, type: 2}
+    amount: 1
   resultHat: {fileID: 11400000, guid: 705e6a0094ee32740a96a45955c32e6c, type: 2}

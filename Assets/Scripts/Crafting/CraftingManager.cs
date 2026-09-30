@@ -71,8 +71,8 @@ public class CraftingManager : MonoBehaviour
 
         foreach (var req in recipe.requiredIngredients)
         {
-            if (req.ingredient == null) continue;
-            if (GetIngredientCount(req.ingredient) < req.count)
+            if (req.ingredientData == null) continue;
+            if (GetIngredientCount(req.ingredientData) < req.amount)
             {
                 return false;
             }
@@ -92,9 +92,9 @@ public class CraftingManager : MonoBehaviour
         // Subtract ingredients
         foreach (var req in recipe.requiredIngredients)
         {
-            if (req.ingredient != null)
+            if (req.ingredientData != null)
             {
-                _inventory[req.ingredient] -= req.count;
+                _inventory[req.ingredientData] -= req.amount;
             }
         }
 

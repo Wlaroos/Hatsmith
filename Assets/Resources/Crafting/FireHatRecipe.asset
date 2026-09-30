@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: FireHatRecipe
   m_EditorClassIdentifier: Assembly-CSharp::RecipeData
   requiredIngredients:
-  - ingredient: {fileID: 11400000, guid: 5bf0d3e6b7947284ab3b0abeccbb2a90, type: 2}
-    count: 2
-  - ingredient: {fileID: 11400000, guid: 69421b7388c22064eb65742db8b7e7c3, type: 2}
-    count: 1
+  - ingredientData: {fileID: 11400000, guid: 5bf0d3e6b7947284ab3b0abeccbb2a90, type: 2}
+    amount: 2
+  - ingredientData: {fileID: 11400000, guid: 69421b7388c22064eb65742db8b7e7c3, type: 2}
+    amount: 1
   resultHat: {fileID: 11400000, guid: 8bf2ce1c298017a4681e5637493f1529, type: 2}
