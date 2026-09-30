@@ -179,6 +179,8 @@ public class LevelGenerator2D : MonoBehaviour
         {
             GenerateLevelFromTexture(roomTexture);
         }
+
+        GameManager.Instance.InvokeRoomClearEvent();
     }
 
     private void UpdatePathfindingGrid()

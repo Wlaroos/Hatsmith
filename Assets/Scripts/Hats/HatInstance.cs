@@ -44,11 +44,11 @@ public class HatInstance : MonoBehaviour
         }
     }
 
-    private void HandleEnemyKilled(GameObject victim)
+    private void HandleEnemyKilled(Transform victim)
     {
         if (Wearer != null && Wearer.CompareTag("Player"))
         {
-            OnKillEvent?.Invoke(this, victim);
+            OnKillEvent?.Invoke(this, victim.gameObject);
         }
     }
 

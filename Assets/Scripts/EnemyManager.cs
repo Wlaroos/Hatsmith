@@ -13,9 +13,9 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private GameObject _enemyPrefab;
     [SerializeField] private int _startPoolSize = 10;
     [SerializeField] private float _spawnPadding = 1.5f;
-
     private readonly List<EnemyMovement> _enemies = new();
     private Camera _mainCamera;
+    private List<EnemyMovement> _activeEnemies = new();
 
     private void Awake()
     {
@@ -29,6 +29,15 @@ public class EnemyManager : MonoBehaviour
             _playerHealth = _playerMovement.GetComponent<PlayerHealth>();
 
         _mainCamera = Camera.main;
+    }
+    private void OnEnable()
+    {
+        GameManager.Instance.EnemyKilledEvent += CheckEnemyCount;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.Instance.EnemyKilledEvent -= CheckEnemyCount;
     }
 
     private void Start()
@@ -58,6 +67,7 @@ public class EnemyManager : MonoBehaviour
         }
 
         enemyToSpawn.Spawn(GetOffScreenSpawnPosition());
+        _activeEnemies.Add(enemyToSpawn);
     }
 
     public void SpawnEnemyAtPosition(Vector2 position)
@@ -71,6 +81,7 @@ public class EnemyManager : MonoBehaviour
         }
 
         enemyToSpawn.Spawn(position);
+        _activeEnemies.Add(enemyToSpawn);
     }
 
     public void ClearAllActiveEnemies()
@@ -82,6 +93,7 @@ public class EnemyManager : MonoBehaviour
                 enemy.gameObject.SetActive(false);
             }
         }
+        _activeEnemies.Clear();
     }
 
     private EnemyMovement GetAvailableEnemy()
@@ -120,6 +132,26 @@ public class EnemyManager : MonoBehaviour
             2 => new Vector2(Random.Range(-halfWidth, halfWidth), halfHeight),
             _ => new Vector2(Random.Range(-halfWidth, halfWidth), -halfHeight)
         };
+    }
+
+    private void CheckEnemyCount(Transform enemyTransform)
+    {
+        for (int i = _activeEnemies.Count - 1; i >= 0; i--)
+        {
+            EnemyMovement enemy = _activeEnemies[i];
+
+            if (enemy == null || enemy.transform == enemyTransform || !enemy.gameObject.activeSelf)
+            {
+                _activeEnemies.RemoveAt(i);
+            }
+        }
+
+        //Debug.Log("Enemy Count: " + _activeEnemies.Count);
+
+        if (_activeEnemies.Count <= 0)
+        {
+            GameManager.Instance.InvokeRoomClearEvent();
+        }
     }
 
     private IEnumerator SpawnEnemiesOverTime()

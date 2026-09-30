@@ -29,3 +29,7 @@ MonoBehaviour:
     color: {r: 0.36862743, g: 1, b: 0.8959226, a: 1}
     type: 0
     prefab: {fileID: 2757456079485347563, guid: 639a6c450e624da45b8368e616a111de, type: 3}
+  - tag: CraftingTable
+    color: {r: 0.64397264, g: 0.36862743, b: 1, a: 1}
+    type: 0
+    prefab: {fileID: 4713131768028862942, guid: dc0ac5047d3e79443be361a742dfd6bf, type: 3}

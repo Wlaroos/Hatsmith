@@ -11,9 +11,10 @@ public class GameManager : MonoBehaviour
     public event Action PlayerKilledEvent = delegate { };
     public event Action<GameObject> PlayerShootEvent = delegate { };
     public event Action<GameObject> EnemyHitEvent = delegate { };
-    public event Action<GameObject> EnemyKilledEvent = delegate { };
+    public event Action<Transform> EnemyKilledEvent = delegate { };
     public event Action RoomChangeEvent = delegate { };
     public event Action RoomClearEvent = delegate { };
+    public event Action RoomExitEvent = delegate { };
     public event Action<IngredientData> IngredientSpawnedEvent = delegate { };
     public event Action<HatData> HatCraftedEvent = delegate { };
     public event Action IngredientPickedUpEvent = delegate { };
@@ -90,10 +91,9 @@ public class GameManager : MonoBehaviour
         EnemyHitEvent.Invoke(enemy);
     }
 
-    public void InvokeEnemyKilledEvent(GameObject enemy)
+    public void InvokeEnemyKilledEvent(Transform enemy)
     {
         EnemyKilledEvent.Invoke(enemy);
-        CraftingManager.Instance.SpawnIngredient(enemy.transform);
     }
 
     public void InvokeIngredientSpawnedEvent(IngredientData ingredient)
@@ -114,6 +114,12 @@ public class GameManager : MonoBehaviour
     public void InvokeRoomClearEvent()
     {
         RoomClearEvent.Invoke();
+        Debug.Log("Room Cleared");
+    }
+
+    public void InvokeRoomExitEvent()
+    {
+        RoomExitEvent.Invoke();
     }
 
     public void InvokeHatCraftedEvent(HatData hatData)

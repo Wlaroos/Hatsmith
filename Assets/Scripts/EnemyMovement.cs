@@ -172,7 +172,7 @@ public class EnemyMovement : MonoBehaviour
 
         if (_currentHealth <= 0)
         {
-            if (GameManager.Instance != null) GameManager.Instance.InvokeEnemyKilledEvent(gameObject);
+            if (GameManager.Instance != null) GameManager.Instance.InvokeEnemyKilledEvent(transform);
 
             if(_rb.bodyType != RigidbodyType2D.Static)
             {

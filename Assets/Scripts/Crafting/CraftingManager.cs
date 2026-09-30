@@ -30,6 +30,16 @@ public class CraftingManager : MonoBehaviour
         Instance = this;
     }
 
+    private void OnEnable()
+    {
+        GameManager.Instance.EnemyKilledEvent += SpawnIngredient;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.Instance.EnemyKilledEvent -= SpawnIngredient;
+    }
+
     public void AddIngredient(IngredientData ingredient, int amount)
     {
         if (ingredient == null) return;
