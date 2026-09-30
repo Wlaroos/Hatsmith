@@ -475,8 +475,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CraftingManager
   _ingredientDatabase: {fileID: 11400000, guid: d8ba57d41736b1e4d8caebfb506a46cc, type: 2}
+  _hatPickupPrefab: {fileID: 2157295402347023227, guid: b0bcaa9c8162d544aba7eaacaec9216a, type: 3}
   _ingredientPrefab: {fileID: 3776704541901684473, guid: e7ffb48dfdacc2b4b994fdc3e188e34f, type: 3}
-  _ingredientDropChance: 0.25
+  _ingredientDropChance: 1
   _animationFrameRate: 0.2
 --- !u!1001 &441938680
 PrefabInstance:

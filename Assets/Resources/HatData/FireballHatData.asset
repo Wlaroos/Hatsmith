@@ -36,6 +36,7 @@ MonoBehaviour:
       type: {class: OrbitalEffect, ns: , asm: Assembly-CSharp}
       data:
         orbitalPrefab: {fileID: 104384480508462922, guid: cd52ca37977494c4dbb702de24edc328, type: 3}
+        bulletData: {fileID: 11400000, guid: 44b93c3def51f064a82dbc188e54cac5, type: 2}
         radius: 1.5
         speed: 360
         numberOfOrbitals: 1
