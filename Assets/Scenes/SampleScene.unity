@@ -723,10 +723,10 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.1532567
+    x: 0
     y: 0
-    width: 0.9195402
-    height: 0.9195402
+    width: 1
+    height: 1
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 34
@@ -859,7 +859,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   gridWorldSize: {x: 30, y: 30}
-  nodeRadius: 0.5
+  nodeRadius: 1
   showGridGizmos: 1
 --- !u!1 &619394800
 GameObject:
