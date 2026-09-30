@@ -15,12 +15,12 @@ public class Trapdoor : MonoBehaviour
 
     private void OnEnable()
     {
-        GameManager.Instance.RoomClearEvent += OnRoomClear;
+        GameManager.Instance.RoomEnemiesKilledEvent += OnRoomClear;
     }
 
     private void OnDisable()
     {
-        GameManager.Instance.RoomClearEvent -= OnRoomClear;
+        GameManager.Instance.RoomEnemiesKilledEvent -= OnRoomClear;
     }
 
     private void OnRoomClear()

@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     public event Action<GameObject> EnemyHitEvent = delegate { };
     public event Action<Transform> EnemyKilledEvent = delegate { };
     public event Action RoomChangeEvent = delegate { };
-    public event Action RoomClearEvent = delegate { };
+    public event Action RoomEnemiesKilledEvent = delegate { };
     public event Action RoomExitEvent = delegate { };
     public event Action<IngredientData> IngredientSpawnedEvent = delegate { };
     public event Action<HatData> HatCraftedEvent = delegate { };
@@ -111,10 +111,10 @@ public class GameManager : MonoBehaviour
         RoomChangeEvent.Invoke();
     }
 
-    public void InvokeRoomClearEvent()
+    public void InvokeRoomEnemiesKilledEvent()
     {
-        RoomClearEvent.Invoke();
-        Debug.Log("Room Cleared");
+        RoomEnemiesKilledEvent.Invoke();
+        Debug.Log("No Enemies Remaining");
     }
 
     public void InvokeRoomExitEvent()

@@ -152,6 +152,7 @@ public class LevelGenerator2D : MonoBehaviour
         }
 
         GameManager.Instance.InvokeRoomChangeEvent();
+        EnemyManager.Instance.CheckEnemyCount(transform);
     }
 
     public void ClearLevel()
@@ -180,7 +181,7 @@ public class LevelGenerator2D : MonoBehaviour
             GenerateLevelFromTexture(roomTexture);
         }
 
-        GameManager.Instance.InvokeRoomClearEvent();
+        EnemyManager.Instance.CheckEnemyCount(transform);
     }
 
     private void UpdatePathfindingGrid()

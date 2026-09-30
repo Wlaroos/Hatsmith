@@ -134,7 +134,7 @@ public class EnemyManager : MonoBehaviour
         };
     }
 
-    private void CheckEnemyCount(Transform enemyTransform)
+    public void CheckEnemyCount(Transform enemyTransform)
     {
         for (int i = _activeEnemies.Count - 1; i >= 0; i--)
         {
@@ -150,7 +150,7 @@ public class EnemyManager : MonoBehaviour
 
         if (_activeEnemies.Count <= 0)
         {
-            GameManager.Instance.InvokeRoomClearEvent();
+            GameManager.Instance.InvokeRoomEnemiesKilledEvent();
         }
     }
 
