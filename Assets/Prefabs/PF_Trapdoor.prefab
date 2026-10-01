@@ -152,3 +152,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   _openSprite: {fileID: -8592207916145546244, guid: 0d50064a3dd95ca4bae48a067d36d9c0, type: 3}
+  _particlePrefab: {fileID: 1703956455698199224, guid: 362ffea541d3a334f8343d4a9cdf9fae, type: 3}

@@ -3,6 +3,7 @@ using UnityEngine;
 public class Trapdoor : MonoBehaviour
 {
     [SerializeField] private Sprite _openSprite;
+    [SerializeField] private GameObject _particlePrefab;
     private SpriteRenderer _sr;
     private BoxCollider2D _bc;
     private bool _open = false;
@@ -27,6 +28,11 @@ public class Trapdoor : MonoBehaviour
     {
         _sr.sprite = _openSprite;
         _open = true;
+        
+        if (_particlePrefab != null)
+        {
+            Instantiate(_particlePrefab, transform.position, Quaternion.identity);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
