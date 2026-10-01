@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FireballHatData
   m_EditorClassIdentifier: Assembly-CSharp::HatData
   hatName: Fireball Hat
-  hatDescription: Every second, add a bullet orbital up to a max of 15
+  hatDescription: Every 2 seconds, add a bullet orbital up to a max of 3
   hatSprite: {fileID: 1496784655817119623, guid: 6e822a4fd3f9c4046b8989f899111496, type: 3}
   stackHeightOffset: 0.5
   rules:
@@ -31,14 +31,14 @@ MonoBehaviour:
     - rid: 4162375646634311763
       type: {class: TickIntervalTrigger, ns: , asm: Assembly-CSharp}
       data:
-        interval: 1
+        interval: 2
     - rid: 4162375646634311764
       type: {class: OrbitalEffect, ns: , asm: Assembly-CSharp}
       data:
         orbitalPrefab: {fileID: 104384480508462922, guid: cd52ca37977494c4dbb702de24edc328, type: 3}
-        bulletData: {fileID: 11400000, guid: 44b93c3def51f064a82dbc188e54cac5, type: 2}
+        bulletData: {fileID: 11400000, guid: ef3b5e0179612b743bb42f5364fedfe4, type: 2}
         radius: 1.5
         speed: 360
         numberOfOrbitals: 1
-        maxOrbitalsPerRing: 15
+        maxOrbitalsPerRing: 3
         isAdditive: 1

@@ -13,6 +13,7 @@ public class BulletData : ScriptableObject
     public float knockback = 3f;
     public float baseSize = 1f;
     public float lifetime = 0f;
+    public bool isOrbital = false;
 
     [Header("Particles")]
     public GameObject destroyParticlePrefab;

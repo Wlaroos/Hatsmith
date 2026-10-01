@@ -8,6 +8,7 @@ public class BulletProjectile : MonoBehaviour
     private float _knockback;
     private float _size;
     private float _lifetime;
+    private bool _isOrbital;
     private GameObject _destroyParticlePrefab;
 
     private Rigidbody2D _rb;
@@ -47,6 +48,13 @@ public class BulletProjectile : MonoBehaviour
         _size = data.baseSize * playerSizeMultiplier;
         _lifetime = data.lifetime;
         _destroyParticlePrefab = data.destroyParticlePrefab;
+        _isOrbital = data.isOrbital;
+
+        // If the bullet is orbital, don't destroy on room change
+        if(_isOrbital)
+        {
+            GameManager.Instance.RoomChangeEvent -= Destroy;
+        }
 
         // Apply Visuals & Animations
         if (_spriteRenderer != null && data.bulletSprite != null)
@@ -73,7 +81,7 @@ public class BulletProjectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {   
-        if (collision.CompareTag("BulletBounds"))
+        if (collision.CompareTag("BulletBounds") && !_isOrbital)
         {
             FrozenAndTrigger();
         }

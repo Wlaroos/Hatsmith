@@ -129,11 +129,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 763991832675297343, guid: b0bcaa9c8162d544aba7eaacaec9216a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -25.59
+      value: -25.5
       objectReference: {fileID: 0}
     - target: {fileID: 763991832675297343, guid: b0bcaa9c8162d544aba7eaacaec9216a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -7.569
+      value: -8
       objectReference: {fileID: 0}
     - target: {fileID: 763991832675297343, guid: b0bcaa9c8162d544aba7eaacaec9216a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -489,11 +489,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 763991832675297343, guid: b0bcaa9c8162d544aba7eaacaec9216a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -21.88
+      value: -21.5
       objectReference: {fileID: 0}
     - target: {fileID: 763991832675297343, guid: b0bcaa9c8162d544aba7eaacaec9216a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -7.569
+      value: -8
       objectReference: {fileID: 0}
     - target: {fileID: 763991832675297343, guid: b0bcaa9c8162d544aba7eaacaec9216a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -723,10 +723,10 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.15209125
+    x: 0
     y: 0
-    width: 0.9125475
-    height: 0.91289467
+    width: 1
+    height: 0.9995874
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 34
@@ -2813,11 +2813,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 763991832675297343, guid: b0bcaa9c8162d544aba7eaacaec9216a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -29.135
+      value: -29.5
       objectReference: {fileID: 0}
     - target: {fileID: 763991832675297343, guid: b0bcaa9c8162d544aba7eaacaec9216a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -7.7
+      value: -8
       objectReference: {fileID: 0}
     - target: {fileID: 763991832675297343, guid: b0bcaa9c8162d544aba7eaacaec9216a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2907,8 +2907,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LevelGenerator2D
   _palette: {fileID: 11400000, guid: 4bfd35542406d1347a3d302a8971f351, type: 2}
   _tileSize: 1
-  _roomParent: {fileID: 1911820274}
-  _playerTransform: {fileID: 1426348531}
   _useForcedRoomOrder: 1
   _forcedRoomOrder:
   - {fileID: 2800000, guid: 35ca12769b2f6b7488bb5bab7951cf92, type: 3}
@@ -2935,7 +2933,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1911820274}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1899576785
@@ -3315,7 +3314,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1892873870}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1958168031
 GameObject:
@@ -3877,7 +3876,6 @@ SceneRoots:
   - {fileID: 231787962}
   - {fileID: 404778626}
   - {fileID: 1892873870}
-  - {fileID: 1911820274}
   - {fileID: 1886315617}
   - {fileID: 149354536}
   - {fileID: 441938680}

@@ -157,6 +157,9 @@ public class EnemyMovement : MonoBehaviour
 
     public void TakeDamage(int damage, Vector2 knockbackForce)
     {
+        // Ignore damage if the enemy is already dead
+        if (_currentHealth <= 0) return;
+        
         _currentHealth -= damage;
         _movementLocked = true;
         _movementLockTimer = _movementLockDuration;
