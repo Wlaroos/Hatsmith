@@ -9,8 +9,13 @@ public class LevelGenerator2D : MonoBehaviour
     [SerializeField] private float _tileSize = 1f;
 
     [Header("Runtime Spawn Targets")]
-    [SerializeField] private Transform _roomParent;
-    [SerializeField] private Transform _playerTransform;
+    private Transform _roomParent;
+    private Transform _playerTransform;
+
+    [Header("Debug")]
+    [SerializeField] private bool _useForcedRoomOrder = false;
+    [SerializeField] private Texture2D[] _forcedRoomOrder;
+    private int _currentForcedRoomIndex = 0;
     private Grid2D _grid;
 
     private void Awake()
@@ -27,15 +32,18 @@ public class LevelGenerator2D : MonoBehaviour
 
         _grid = FindFirstObjectByType<Grid2D>();
 
-        if (_playerTransform == null)
-        {
-            PlayerMovement player = FindAnyObjectByType<PlayerMovement>();
-            if (player != null) _playerTransform = player.transform;
-        }
+        GrabRefs();
     }
 
     public void GenerateLevelFromTexture(Texture2D mapTexture)
     {
+
+        if (_useForcedRoomOrder && _forcedRoomOrder.Length > 0)
+        {
+            mapTexture = _forcedRoomOrder[_currentForcedRoomIndex];
+            _currentForcedRoomIndex = (_currentForcedRoomIndex + 1) % _forcedRoomOrder.Length;
+        }
+
         ClearLevel();
 
         if (mapTexture == null || _palette == null)
@@ -176,6 +184,9 @@ public class LevelGenerator2D : MonoBehaviour
     {
         Texture2D roomTexture = Resources.Load<Texture2D>("SpecialRooms/Start_Room");
 
+        _currentForcedRoomIndex = 0;
+        GrabRefs();
+
         if (roomTexture != null)
         {
             GenerateLevelFromTexture(roomTexture);
@@ -203,5 +214,19 @@ public class LevelGenerator2D : MonoBehaviour
                Mathf.Abs(c1.g - c2.g) < tolerance &&
                Mathf.Abs(c1.b - c2.b) < tolerance &&
                Mathf.Abs(c1.a - c2.a) < tolerance;
+    }
+
+    private void GrabRefs()
+    {
+        if (_playerTransform == null)
+        {
+            PlayerMovement player = FindAnyObjectByType<PlayerMovement>();
+            if (player != null) _playerTransform = player.transform;
+        }
+
+        if (_roomParent == null)
+        {
+            _roomParent = transform.GetChild(0);
+        }
     }
 }

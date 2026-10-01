@@ -16,6 +16,11 @@ public class Pathfinding2D : MonoBehaviour
         Node2D startNode = grid.NodeFromWorldPoint(startPos);
         Node2D targetNode = grid.NodeFromWorldPoint(targetPos);
 
+        if (!startNode.walkable) startNode = GetNearestWalkableNode(startNode);
+        if (!targetNode.walkable) targetNode = GetNearestWalkableNode(targetNode);
+
+        if (startNode == null || targetNode == null) return null;
+
         List<Node2D> openSet = new List<Node2D>();
         HashSet<Node2D> closedSet = new HashSet<Node2D>();
         openSet.Add(startNode);
@@ -80,22 +85,13 @@ public class Pathfinding2D : MonoBehaviour
         if (rawPath == null || rawPath.Count == 0) return waypoints;
 
         Vector3 currentPoint = startNode.worldPosition;
-        
-        for (int i = 0; i < rawPath.Count; i++)
+
+        for (int i = 0; i < rawPath.Count - 1; i++)
         {
             // If there's an obstacle between currentPoint and the target node
-            if (!HasLineOfSight(currentPoint, rawPath[i].worldPosition))
+            if (!HasLineOfSight(currentPoint, rawPath[i + 1].worldPosition))
             {
-                // If line-of-sight fails on the very first node, fall back to that node
-                if (i == 0)
-                {
-                    currentPoint = rawPath[0].worldPosition;
-                }
-                else
-                {
-                    currentPoint = rawPath[i - 1].worldPosition;
-                }
-
+                currentPoint = rawPath[i].worldPosition;
                 waypoints.Add(currentPoint);
             }
         }
@@ -111,9 +107,29 @@ public class Pathfinding2D : MonoBehaviour
         float distance = dir.magnitude;
 
         // Raycast using the unwalkable layer mask from Grid2D
-        RaycastHit2D hit = Physics2D.CircleCast(start, grid.nodeRadius * 0.8f, dir.normalized, distance, grid.unwalkableMask);
+        if (distance <= 0.001f) return true;
+
+        RaycastHit2D hit = Physics2D.CircleCast(start, grid.nodeRadius * 0.4f, dir.normalized, distance, grid.unwalkableMask);
         
+        if (hit.collider != null && hit.distance == 0)
+        {
+            return true;
+        }
+
         return hit.collider == null;
+    }
+
+    Node2D GetNearestWalkableNode(Node2D node)
+    {
+        if (node.walkable) return node;
+
+        List<Node2D> neighbors = grid.GetNeighbors(node);
+        foreach (Node2D neighbor in neighbors)
+        {
+            if (neighbor.walkable) return neighbor;
+        }
+
+        return node;
     }
 
     int GetDistance(Node2D nodeA, Node2D nodeB) 

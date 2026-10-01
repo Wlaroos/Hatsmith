@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BulletData
   bulletSprite: {fileID: 8140593895237489223, guid: 000c2f03f536f99438eaad7a855eb5d7, type: 3}
   animatorController: {fileID: 9100000, guid: 322980a8f9071614d8453068bd6a4c50, type: 2}
-  shotSpeed: 12
+  shotSpeed: 10
   baseDamage: 1
   knockback: 3
   baseSize: 1

@@ -4,6 +4,15 @@ public class CraftingTable : MonoBehaviour
 {
     [SerializeField] private CanvasGroup _craftingMenuCanvasGroup;
     private bool _showE;
+
+    private void Awake()
+    {
+        if(_craftingMenuCanvasGroup == null)
+        {
+            _craftingMenuCanvasGroup = FindFirstObjectByType<CraftingUI>().GetComponent<CanvasGroup>();
+        }
+    }
+
     private void Update()
     {
         if(_showE && Input.GetKeyDown(KeyCode.E))

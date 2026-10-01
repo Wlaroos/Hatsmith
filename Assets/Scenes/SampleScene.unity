@@ -2297,9 +2297,9 @@ GameObject:
   - component: {fileID: 1426348529}
   - component: {fileID: 1426348535}
   - component: {fileID: 1426348536}
+  - component: {fileID: 1426348534}
   - component: {fileID: 1426348528}
   - component: {fileID: 1426348533}
-  - component: {fileID: 1426348534}
   - component: {fileID: 1426348537}
   m_Layer: 6
   m_Name: Player
@@ -2523,7 +2523,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
   baseMoveSpeed: 5
-  baseFireDelay: 0.2
+  baseFireDelay: 0.33
   baseBulletSize: 1
   baseMaxHealth: 3
 --- !u!114 &1426348537
@@ -2909,6 +2909,20 @@ MonoBehaviour:
   _tileSize: 1
   _roomParent: {fileID: 1911820274}
   _playerTransform: {fileID: 1426348531}
+  _useForcedRoomOrder: 1
+  _forcedRoomOrder:
+  - {fileID: 2800000, guid: 35ca12769b2f6b7488bb5bab7951cf92, type: 3}
+  - {fileID: 2800000, guid: a8f726b5421286c4f90dbf1fbaa08f4c, type: 3}
+  - {fileID: 2800000, guid: b03fddbc0a87a824d9c3dd9ca61a756d, type: 3}
+  - {fileID: 2800000, guid: 2553cc0bf34262a49862ff172b68a32e, type: 3}
+  - {fileID: 2800000, guid: dd480728ac970b848af64dc17c99335b, type: 3}
+  - {fileID: 2800000, guid: f023a10534e576d43a4803f65b395216, type: 3}
+  - {fileID: 2800000, guid: e1e17e0fe393da749b77bd7982bd8663, type: 3}
+  - {fileID: 2800000, guid: bebdc810218d2044fab6c66404fa3504, type: 3}
+  - {fileID: 2800000, guid: 6f1e5f1f985480f42ba778894a482d0a, type: 3}
+  - {fileID: 2800000, guid: 2e1d4f3709be289488b9f505ffe2845e, type: 3}
+  - {fileID: 2800000, guid: 13b0f9e5c4c82b440898e2c7d7153639, type: 3}
+  - {fileID: 2800000, guid: 81d217378be7c7247ab05a9d1bebebe3, type: 3}
 --- !u!4 &1892873870
 Transform:
   m_ObjectHideFlags: 0
