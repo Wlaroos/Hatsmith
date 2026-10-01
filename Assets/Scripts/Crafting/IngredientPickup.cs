@@ -13,6 +13,16 @@ public class IngredientPickup : MonoBehaviour
         _sr = GetComponent<SpriteRenderer>();
     }
 
+    private void OnEnable()
+    {
+        GameManager.Instance.RoomChangeEvent += Destroy;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.Instance.RoomChangeEvent -= Destroy;
+    }
+
     public void Initialize(IngredientData data, float frameRate = 0.2f)
     {
         _data = data;
@@ -64,5 +74,10 @@ public class IngredientPickup : MonoBehaviour
 
             Destroy(gameObject);
         }
+    }
+
+    private void Destroy()
+    {
+        Destroy(gameObject);
     }
 }
